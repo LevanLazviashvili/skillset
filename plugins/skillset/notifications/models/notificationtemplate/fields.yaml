@@ -1,0 +1,19 @@
+tabs:
+    fields:
+        title:
+            label: სათაური
+            span: auto
+            type: text
+            tab: თარგმნა
+        description:
+            label: აღწერა
+            size: huge
+            span: auto
+            type: textarea
+            tab: თარგმნა
+        button_title:
+            label: 'ღილაკის ტექსტი'
+            span: auto
+            type: text
+            comment: 'ღილაკის არსებობის შემთხვევაში'
+            tab: თარგმნა

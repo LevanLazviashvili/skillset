@@ -1,0 +1,18 @@
+fields:
+    video_url:
+        label: ვიდეო
+        span: auto
+        type: text
+        comment: 'ჩასვით ვიდეოს ბმული'
+    status_id:
+        label: ჩართული
+        span: auto
+        default: 1
+        type: switch
+tabs:
+    fields:
+        title:
+            label: სათაური
+            span: auto
+            type: text
+            tab: თარგმნა

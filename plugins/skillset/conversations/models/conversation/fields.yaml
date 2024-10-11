@@ -1,0 +1,8 @@
+fields:
+    id:
+        label: id
+        span: auto
+        disabled: 1
+        readOnly: 1
+        hidden: 1
+        type: text

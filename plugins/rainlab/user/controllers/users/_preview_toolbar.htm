@@ -1,0 +1,100 @@
+<a
+    href="<?= Backend::url('rainlab/user/users') ?>"
+    class="btn btn-default oc-icon-chevron-left">
+     სიაზე დაბრუნება
+</a>
+<a
+    href="<?= Backend::url('rainlab/user/users/update/'.$formModel->id) ?>"
+    class="btn btn-primary oc-icon-pencil">
+    რედაქტირება
+</a>
+
+<button
+        type="submit"
+        data-request="onStartChat"
+        data-request-data="user_id:<?=$formModel->id ?>"
+        data-load-indicator="გთხოვთ დაელოდოთ"
+        class="btn btn-primary oc-icon-wechat">
+    დაკავშირება
+</button>
+<?php if ($formModel->status_id == 0): ?>
+<button
+        type="submit"
+        data-request="onActivateWorker"
+        data-request-data="user_id:<?=$formModel->id ?>"
+        data-load-indicator="გთხოვთ დაელოდოთ"
+        class="btn btn-success active oc-icon-check">
+    დადასტურება
+</button>
+<button
+        type="submit"
+        data-request="onDeleteWorker"
+        data-request-data="user_id:<?=$formModel->id ?>"
+        data-load-indicator="გთხოვთ დაელოდოთ"
+        data-request-confirm="დარწმუნებული ხართ რომ გსურთ მომხმარებლის წაშლა?"
+        class="btn btn-danger active oc-icon-trash-o">
+    წაშლა
+</button>
+<?php endif ?>
+<?php if ($formModel->status_id > 0): ?>
+    <button
+            type="submit"
+            data-request="onDeactivateUser"
+            data-request-data="user_id:<?=$formModel->id ?>"
+            data-load-indicator="გთხოვთ დაელოდოთ"
+            data-request-confirm="დარწმუნებული ხართ რომ გსურთ მომხმარებლის წაშლა?"
+            class="btn btn-danger active oc-icon-trash-o">
+        წაშლა
+    </button>
+<?php endif ?>
+<?php if ($formModel->status_id == 2): ?>
+<button
+        type="submit"
+        data-request="onAcceptUserUpdate"
+        data-request-data="user_id:<?=$formModel->id ?>"
+        data-load-indicator="გთხოვთ დაელოდოთ"
+        data-request-confirm="დარწმუნებული ხართ რომ გსურთ ცვლილებების დადასტურება?"
+        class="btn btn-success active oc-icon-check">
+    ცვლილების დადასტურება
+</button>
+<?php endif ?>
+
+<!--<?php if ($this->user->hasAccess('rainlab.users.impersonate_user')): ?>-->
+<!--    <a-->
+<!--        href="javascript:;"-->
+<!--        data-request="onImpersonateUser"-->
+<!--        data-request-confirm="<?= e(trans('rainlab.user::lang.users.impersonate_confirm')) ?>"-->
+<!--        class="btn btn-default oc-icon-user-secret">-->
+<!--        <?= e(trans('rainlab.user::lang.users.impersonate_user')) ?>-->
+<!--    </a>-->
+<!--<?php endif ?>-->
+
+<?php if ($formModel->isSuspended()): ?>
+    <a
+        href="javascript:;"
+        data-request="onUnsuspendUser"
+        data-request-confirm="<?= e(trans('rainlab.user::lang.users.unsuspend_confirm')) ?>"
+        class="btn btn-default oc-icon-unlock-alt">
+        <?= e(trans('rainlab.user::lang.users.unsuspend')) ?>
+    </a>
+<?php endif ?>
+
+<?=
+    /**
+     * @event rainlab.user.view.extendPreviewToolbar
+     * Fires when preview user toolbar is rendered.
+     *
+     * Example usage:
+     *
+     *     Event::listen('rainlab.user.view.extendPreviewToolbar', function (
+     *         (RainLab\User\Controllers\Users) $controller,
+     *         (RainLab\User\Models\User) $record
+     *     ) {
+     *         return $controller->makePartial('~/path/to/partial');
+     *     });
+     *
+     */
+    $this->fireViewEvent('rainlab.user.view.extendPreviewToolbar', [
+        'record' => $formModel
+    ]);
+?>

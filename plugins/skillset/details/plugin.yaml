@@ -1,0 +1,43 @@
+plugin:
+    name: 'skillset.details::lang.plugin.name'
+    description: 'skillset.details::lang.plugin.description'
+    author: leve
+    icon: oc-icon-flag
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: დეტაილები
+        url: skillset/details/countries
+        icon: icon-puzzle-piece
+        permissions:
+            - details
+        order: '520'
+        sideMenu:
+            side-menu-item:
+                label: ქვეყნები
+                url: skillset/details/countries
+                icon: icon-flag
+            side-menu-item2:
+                label: ქალაქები/სოფლები
+                url: skillset/details/regions
+                icon: icon-road
+            side-menu-item3:
+                label: ერთეულები
+                url: skillset/details/units
+                icon: icon-tachometer
+            side-menu-item4:
+                label: 'იურიდიული სტატუსები'
+                url: skillset/details/legaltypes
+                icon: icon-file-text-o
+            side-menu-item5:
+                label: ტექსტები
+                url: skillset/details/texts
+                icon: icon-file-text-o
+            side-menu-item6:
+                label: ინსტრუქციები
+                url: skillset/details/instructions
+                icon: icon-toggle-right
+permissions:
+    details:
+        tab: skillset
+        label: details

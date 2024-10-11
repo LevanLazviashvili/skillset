@@ -1,0 +1,15 @@
+columns:
+    title:
+        label: 'დასახელება'
+        type: text
+    amount:
+        label: რაოდენობა
+        type: text
+    unit_id:
+        label: ერთეული
+        type: text
+        relation: unit
+        select: 'title'
+    unit_price:
+        label: ერთეულის ფასი
+        type: text

@@ -1,0 +1,37 @@
+plugin:
+    name: 'skillset.jobs::lang.plugin.name'
+    description: 'skillset.jobs::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-bullhorn
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: 'არაპროფესიული დავალებები'
+        url: skillset/jobs/jobs
+        icon: icon-bullhorn
+        permissions:
+            - jobs
+        order: '508'
+        sideMenu:
+            side-menu-item:
+                label: დავალებები
+                url: skillset/jobs/jobs
+                icon: icon-bullhorn
+                permissions:
+                    - jobs
+            side-menu-item2:
+                label: შეთავაზებები
+                url: skillset/jobs/offers
+                icon: icon-exchange
+                permissions:
+                    - jobs
+            side-menu-item3:
+                label: შეკვეთები
+                url: skillset/jobs/orders
+                icon: icon-shopping-cart
+                permissions:
+                    - jobs
+permissions:
+    jobs:
+        tab: skillset
+        label: jobs

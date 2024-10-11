@@ -1,0 +1,20 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table skillset_rating_'
+    - builder_table_create_skillset_rating_.php
+1.0.3:
+    - 'Updated table skillset_rating_'
+    - builder_table_update_skillset_rating_.php
+1.0.4:
+    - 'Updated table skillset_rating_'
+    - builder_table_update_skillset_rating__2.php
+1.0.5:
+    - 'Updated table skillset_rating_'
+    - builder_table_update_skillset_rating__3.php
+1.0.6:
+    - 'Updated table skillset_rating_'
+    - builder_table_update_skillset_rating__4.php
+1.0.7:
+    - 'Updated table skillset_rating_added_column_order_type'
+    - builder_table_update_skillset_rating__5.php

@@ -1,0 +1,121 @@
+fields:
+    id:
+        label: ID
+        span: auto
+        disabled: 1
+        readOnly: 1
+        type: text
+    title:
+        label: 'შეკვეთის კატეგორია'
+        span: auto
+        disabled: 1
+        readOnly: 1
+        type: text
+    Client1:
+        label: დამკვეთი
+        span: auto
+        disabled: 1
+        readOnly: 1
+        select: 'concat('' ( '', id, '' ) '', name, '' '', surname)'
+        type: relation
+    Worker1:
+        label: შემსრულებელი
+        span: auto
+        disabled: 1
+        readOnly: 1
+        select: 'concat('' ( '', id, '' ) '', name, '' '', surname)'
+        type: relation
+    start_date:
+        label: 'სამუშაოების დაწყების თარიღი'
+        mode: datetime
+        format: d-m-Y
+        span: auto
+        type: datepicker
+        disabled: 1
+        readOnly: 1
+    status_id:
+        label: მდგომარეობა
+        options:
+            - გაუქმებული
+            - 'სამუშაოები დაიწყო'
+            - 'მიღება ჩაბარება გაფორმდა'
+            - 'დამკვეთმა მიიღო სამუშაოები (გადაუხდელია)'
+            - 'შეკვეთა გადახდილია'
+        showSearch: true
+        span: auto
+        type: dropdown
+    end_date:
+        label: 'დასრულების სავ. თარიღი'
+        mode: date
+        format: d-m-Y
+        span: auto
+        type: datepicker
+    description:
+        label: დეტალები
+        span: auto
+        type: textarea
+        comment: 'პროექტის დეტალები'
+    ended_at:
+        label: 'დასრულების თარიღი'
+        mode: datetime
+        format: d-m-Y
+        span: auto
+        type: datepicker
+        disabled: 1
+        readOnly: 1
+    app_percent:
+        label: 'skillset-ის საკომისიო პროცენტი'
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    app_percent_amount:
+        label: 'skillset-ის საკომისიო თანხა'
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    bank_percent:
+        label: 'ბანკის საკომისიო პროცენტი'
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    bank_percent_amount:
+        label: 'ბანკის საკომისიო თანხა'
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    total_price:
+        label: 'ჯამური თანხა'
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    comment:
+        label: კომენტარი
+        type: textarea
+        span: auto
+    payment_type:
+        label: 'გადახდის ტიპი'
+        options:
+            - ქეშად
+            - ბარათით
+        span: auto
+        type: dropdown
+        disabled: 1
+        readOnly: 1
+    custom_client_phone:
+        label: 'დამკვეთის ნომერი'
+        span: left
+        readOnly: 1
+        type: text
+        comment: 'ეს ველი გამოიყენება მხოლოდ იმ შემთხვევაში თუ შეკვეთა ოპერატორის შექმნილია'
+    custom_client_address:
+        label: 'დამკვეთის მისამართი'
+        span: left
+        disabled: 0
+        readOnly: 1
+        type: text
+        comment: 'ეს ველი გამოიყენება მხოლოდ იმ შემთხვევაში თუ შეკვეთა ოპერატორის შექმნილია'

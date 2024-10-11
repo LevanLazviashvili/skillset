@@ -1,0 +1,21 @@
+columns:
+    id:
+        label: ID
+        type: number
+        sortable: true
+    title:
+        label: დასახელება
+        type: text
+    country_id:
+        label: ქვეყანა
+        type: text
+        searchable: true
+        sortable: true
+        select: title
+        relation: Country
+    status_id:
+        label: ჩართული
+        type: switch
+    sort_order:
+        label: მიმდევრობა
+        type: number

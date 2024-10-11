@@ -1,0 +1,5 @@
+title: Regions
+modelClass: skillset\details\Models\Region
+nameFrom: title
+toolbar:
+    buttons: reorder_toolbar

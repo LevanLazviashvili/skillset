@@ -1,0 +1,12 @@
+list: $/skillset/services/models/subservice/columns.yaml
+modelClass: skillset\Services\Models\SubService
+title: SubServices
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'skillset/services/subservices/update/:id'

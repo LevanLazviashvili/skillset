@@ -1,0 +1,26 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table skillset_marketplace_applications'
+    - builder_table_create_skillset_marketplace_applications.php
+1.0.3:
+    - 'Created table skillset_marketplace_offers'
+    - builder_table_create_skillset_marketplace_offers.php
+1.0.4:
+    - 'Created table skillset_marketplace_orders'
+    - builder_table_create_skillset_marketplace_orders.php
+1.0.5:
+    - 'Created table skillset_marketplace_application_product'
+    - builder_table_create_skillset_marketplace_application_product.php
+1.0.6:
+    - 'Updated table skillset_marketplace_offers'
+    - builder_table_update_skillset_marketplace_offers.php
+1.0.7:
+    - 'Updated table skillset_marketplace_orders_added_column_rated'
+    - builder_table_update_skillset_marketplace_orders.php
+1.0.8:
+    - 'Updated table skillset_marketplace_orders added completed at column'
+    - builder_table_update_skillset_marketplace_orders_add_completed_at.php
+1.0.9:
+    - 'Updated table skillset_marketplace_application_product added pre column'
+    - builder_table_update_skillset_marketplace_application_product_add_pre_column.php

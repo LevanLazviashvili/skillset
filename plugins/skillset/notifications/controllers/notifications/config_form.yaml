@@ -1,0 +1,10 @@
+name: Notifications
+form: $/skillset/notifications/models/notification/fields.yaml
+modelClass: skillset\Notifications\Models\Notification
+defaultRedirect: skillset/notifications/notifications
+create:
+    redirect: 'skillset/notifications/notifications/update/:id'
+    redirectClose: skillset/notifications/notifications
+update:
+    redirect: skillset/notifications/notifications
+    redirectClose: skillset/notifications/notifications

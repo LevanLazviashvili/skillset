@@ -1,0 +1,30 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table skillset_jobs'
+    - builder_table_create_skillset_jobs.php
+1.0.3:
+    - 'Created table skillset_jobs_offer'
+    - builder_table_create_skillset_jobs_offers.php
+1.0.4:
+    - 'Created table skillset_jobs_orders'
+    - builder_table_create_skillset_jobs_orders.php
+1.0.5:
+    - 'Created table skillset_jobs_services'
+    - builder_table_create_skillset_jobs_services.php
+1.0.6:
+    - 'Updated table skillset_jobs_offers'
+    - builder_table_update_skillset_jobs_offers.php
+1.0.7:
+    - 'Updated table skillset_jobs'
+    - builder_table_update_skillset_jobs.php
+1.0.8:
+    - 'Updated table skillset_jobs_offers rename worker_id column'
+    - builder_table_update_skillset_jobs_offers2.php
+1.0.9:
+    - 'Updated table skillset_jobs_orders add column rated'
+    - builder_table_update_skillset_jobs_orders.php
+1.0.10:
+    - 'Updated table skillset_jobs_orders add column end_date_notified'
+    - builder_table_update_skillset_jobs_orders2.php
+

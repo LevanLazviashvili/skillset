@@ -1,0 +1,10 @@
+columns:
+    title:
+        label: სათაური
+        type: text
+        searchable: true
+        sortable: true
+    status_id:
+        label: ჩართული
+        type: switch
+        sortable: true

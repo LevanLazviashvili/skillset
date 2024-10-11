@@ -1,0 +1,11 @@
+fields:
+    title:
+        label: რეინჯი
+        span: auto
+        disabled: 1
+        readOnly: 1
+        type: text
+    percent:
+        label: პროცენტი
+        span: auto
+        type: number

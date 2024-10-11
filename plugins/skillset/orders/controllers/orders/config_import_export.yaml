@@ -1,0 +1,6 @@
+
+export:
+  title: Export Orders
+  modelClass: skillset\Orders\Models\OrderExport
+  list: $/skillset/orders/models/order/columnsforexport.yaml
+  fileName: Orders.csv

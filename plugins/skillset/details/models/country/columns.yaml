@@ -1,0 +1,17 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: false
+        sortable: true
+    title:
+        label: დასახელება
+        type: text
+        searchable: true
+        sortable: true
+    status_id:
+        label: ჩართული
+        type: switch
+    sort_order:
+        label: მიმდევრობა
+        type: number

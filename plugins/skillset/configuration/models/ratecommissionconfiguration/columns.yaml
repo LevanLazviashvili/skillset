@@ -1,0 +1,7 @@
+columns:
+    title:
+        label: რეინჯი
+        type: text
+    percent:
+        label: 'საკომისიო %'
+        type: text

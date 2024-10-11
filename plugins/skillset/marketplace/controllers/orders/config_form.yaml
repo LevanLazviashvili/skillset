@@ -1,0 +1,7 @@
+name: Orders
+modelClass: skillset\Marketplace\Models\Order
+form: $/skillset/marketplace/models/order/fields.yaml
+defaultRedirect: skillset/marketplace/orders
+update:
+    redirect: skillset/marketplace/orders
+    redirectClose: skillset/marketplace/orders

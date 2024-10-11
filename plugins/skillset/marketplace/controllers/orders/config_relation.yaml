@@ -1,0 +1,17 @@
+orderProducts:
+    label: 'საბოლოო ინვოისი'
+    view:
+      list: $/skillset/marketplace/models/product/columns.yaml
+      toolbarButtons: false
+      showCheckboxes: false
+    manage:
+      form: $/skillset/marketplace/models/product/fields.yaml
+
+offerProducts:
+  label: 'წინასწარ შექმნილი ინვოისი'
+  view:
+    list: $/skillset/marketplace/models/product/columns.yaml
+    toolbarButtons: false
+    showCheckboxes: false
+  manage:
+    form: $/skillset/marketplace/models/product/fields.yaml

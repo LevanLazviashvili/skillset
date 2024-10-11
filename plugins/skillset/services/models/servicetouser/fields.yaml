@@ -1,0 +1,33 @@
+fields:
+    service:
+        label: კატეგორია
+        select: title
+        span: auto
+        type: relation
+    subService:
+        label: სერვისი
+        nameFrom: title
+        span: auto
+        type: dropdown
+        dependsOn: service
+    amount:
+        label: რაოდენობა
+        span: auto
+        type: text
+    unit:
+        label: ერთეული
+        select: title
+        span: auto
+        type: relation
+    price_from:
+        label: მინიმალური ფასი
+        span: auto
+        type: text
+    price_to:
+        label: მაქსიმალური ფასი
+        span: auto
+        type: text
+    status_id:
+        type: number
+        hidden: true
+        default: 1

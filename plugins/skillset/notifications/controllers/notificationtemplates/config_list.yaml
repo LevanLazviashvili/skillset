@@ -1,0 +1,12 @@
+list: $/skillset/notifications/models/notificationtemplate/columns.yaml
+modelClass: skillset\Notifications\Models\NotificationTemplate
+title: NotificationTemplates
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'skillset/notifications/notificationtemplates/update/:id'

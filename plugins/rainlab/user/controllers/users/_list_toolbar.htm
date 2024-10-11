@@ -1,0 +1,49 @@
+<div data-control="toolbar">
+    <a
+        href="<?= Backend::url('rainlab/user/users/create') ?>"
+        class="btn btn-primary oc-icon-plus">
+        <?= e(trans('rainlab.user::lang.users.new_user')) ?>
+    </a>
+
+    <a
+            href="<?= Backend::url('rainlab/user/users/export') ?>"
+            class="btn btn-primary oc-icon-sign-out">
+        ექსპორტი
+    </a>
+
+    <button
+            class="btn btn-default oc-icon-percent"
+            disabled="disabled"
+            onclick="$(this).data('request-data', {
+            checked: $('.control-list').listWidget('getChecked')
+        })"
+            data-trigger-action="enable"
+            data-trigger=".control-list input[type=checkbox]"
+            data-trigger-condition="checked"
+            data-request-success="$(this).prop('disabled', true)"
+            data-toggle="modal"
+            href="#contentBasic"
+            data-stripe-load-indicator>
+        საკომისიოს გაწერა
+    </button>
+
+
+
+    <?=
+        /**
+         * @event rainlab.user.view.extendListToolbar
+         * Fires when user list toolbar is rendered.
+         *
+         * Example usage:
+         *
+         *     Event::listen('rainlab.user.view.extendListToolbar', function (
+         *         (RainLab\User\Controllers\Users) $controller
+         *     ) {
+         *         return $controller->makePartial('~/path/to/partial');
+         *     });
+         *
+         */
+        $this->fireViewEvent('rainlab.user.view.extendListToolbar');
+    ?>
+
+</div>

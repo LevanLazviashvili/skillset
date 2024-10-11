@@ -1,0 +1,11 @@
+scopes:
+  start_date:
+    label: დაწყების თარიღი
+    type: daterange
+    modelClass: skillset\Orders\Models\Order
+    conditions: start_date >= ':after' AND start_date <= ':before'
+  end_date:
+    label: დასრულების თარიღი
+    type: daterange
+    modelClass: skillset\Orders\Models\Order
+    conditions: end_date >= ':after' AND end_date <= ':before'

@@ -1,0 +1,7 @@
+name: Jobs
+modelClass: skillset\Jobs\Models\Job
+form: $/skillset/jobs/models/job/fields.yaml
+defaultRedirect: skillset/jobs/jobs
+update:
+    redirect: skillset/jobs/jobs
+    redirectClose: skillset/jobs/jobs

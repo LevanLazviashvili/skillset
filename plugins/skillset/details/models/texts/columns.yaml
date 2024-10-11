@@ -1,0 +1,11 @@
+columns:
+    id:
+        label: ID
+        type: number
+    title:
+        label: სათაური
+        type: text
+    updated_at:
+        label: 'ბოლოს განახლდა'
+        type: datetime
+        format: d-m-Y H:i:s

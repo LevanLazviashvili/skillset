@@ -1,0 +1,10 @@
+name: Countries
+form: $/skillset/details/models/country/fields.yaml
+modelClass: skillset\details\Models\Country
+defaultRedirect: skillset/details/countries
+create:
+    redirect: 'skillset/details/countries/update/:id'
+    redirectClose: skillset/details/countries
+update:
+    redirect: skillset/details/countries
+    redirectClose: skillset/details/countries

@@ -1,0 +1,34 @@
+fields:
+    send_to:
+        label: გაეგზავნოს
+        options:
+            - ყველას
+            - ხელოსნებს
+            - შემკვეთებს
+        showSearch: true
+        span: auto
+        type: dropdown
+    Template:
+        label: 'მაგალითის არჩევა'
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation
+    frequency:
+        label: სიხშირე
+        options:
+            - ერთჯერადად
+            - 'ყოველ 1 საათში'
+            - 'ყოველ 3 საათში'
+            - 'ყოველ დღე'
+            - '3 დღეში ერთხელ'
+            - '7 დღეში ერთხელ'
+            - 'თვეში ერთხელ'
+        showSearch: true
+        span: auto
+        type: dropdown
+    status_id:
+        label: ჩართული
+        span: auto
+        default: 1
+        type: switch

@@ -1,0 +1,7 @@
+name: Orders
+modelClass: skillset\Jobs\Models\Order
+form: $/skillset/jobs/models/order/fields.yaml
+defaultRedirect: skillset/jobs/orders
+update:
+    redirect: skillset/jobs/orders
+    redirectClose: skillset/jobs/orders

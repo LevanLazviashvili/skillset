@@ -1,0 +1,11 @@
+name: Comments
+modelClass: Skillset\Forum\Models\Comment
+form: $/skillset/forum/models/comment/fields.yaml
+defaultRedirect: skillset/forum/comments
+create:
+    redirect: 'skillset/forum/comments/update/:id'
+    redirectClose: skillset/forum/comments
+update:
+    redirect: skillset/forum/comments
+    redirectClose: skillset/forum/comments
+preview: {  }

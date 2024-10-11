@@ -1,0 +1,98 @@
+fields:
+    id:
+        label: ID
+        span: auto
+        readOnly: 1
+        type: text
+    application:
+        label: განაცხადი
+        span: auto
+        readOnly: 1
+        type: relation
+        select: 'concat('' ( '', id, '' ) '', title)'
+        disabled: true
+    application[trade_type]:
+        label: განაცხადის ტიპი
+        span: auto
+        readOnly: 1
+        type: dropdown
+        options:
+            1: 'გაყიდვა'
+            2: 'ყიდვა'
+        disabled: true
+    application[description]:
+        label: აღწერა
+        span: auto
+        readOnly: 1
+        disabled: 1
+        type: richeditor
+    seller_user:
+        label: გამყიდველი
+        span: left
+        readOnly: 1
+        type: text
+        disabled: true
+    client_user:
+        label: კლიენტი
+        span: left
+        readOnly: 1
+        type: text
+        disabled: true
+    status:
+        label: მდგომარეობა
+        showSearch: true
+        span: auto
+        type: dropdown
+        options:
+            1: 'დადასტურების მოლოდინში'
+            2: 'გადახდის მოლოდინში'
+            3: 'კლიენტმა გადაიხადა'
+            4: 'მიღება / ჩაბარება გაგზავნილია'
+            5: 'გადახდილი'
+    completed_at:
+        label: დასრულების თარიღი
+        mode: datetime
+        format: d-m-Y
+        span: left
+        type: datepicker
+        disabled: 1
+        readOnly: 1
+    app_percent:
+        label: skillset-ის საკომისიო პროცენტი
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    app_percent_amount:
+        label: skillset-ის საკომისიო თანხა
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    bank_percent:
+        label: ბანკის საკომისიო პროცენტი
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    bank_percent_amount:
+        label: ბანკის საკომისიო თანხა
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    total_price:
+        label: ჯამური თანხა
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    payment_type:
+        label: გადახდის ტიპი
+        options:
+            0: ქეში
+            1: ბარათი
+        span: left
+        type: dropdown
+        disabled: 1
+        readOnly: 1

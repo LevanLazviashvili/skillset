@@ -1,0 +1,72 @@
+fields:
+    Client1:
+        label: დამკვეთი
+        span: auto
+        disabled: 1
+        readOnly: 1
+        select: 'concat('' ( '', id, '' ) '', name, '' '', surname)'
+        type: relation
+    custom_client_phone:
+        label: 'დამკვეთის ნომერი'
+        span: auto
+        required: 1
+        type: text
+        comment: 'კლიენტის ნომერს უთითებთ იმ შემთხვევაში თუ მომხმარებლს არ გააჩნია აპლიკაციის ექაუნთი და სურს ოპერატორის საშუალებით გააგზავნოს შეკვეთა'
+    offer:
+        label: 'შეთავაზების ტექსტი'
+        size: large
+        span: auto
+        required: 1
+        type: textarea
+    custom_client_address:
+        label: 'დამკვეთის მისამართი'
+        span: auto
+        required: 1
+        type: text
+        comment: 'ჩაწერეთ სრული მისამართი: ქვეყანა, ქალაქი/სოფელი, მისამართი'
+    comment:
+        label: 'კომენტარი'
+        span: right
+        type: textarea
+tabs:
+    fields:
+        Services:
+            label: კატეგორია
+            nameFrom: title
+            span: auto
+            type: relation
+            context:
+                - create
+            tab: ფილტრები
+        SubServices:
+            label: სერვისი
+            nameFrom: title
+            span: auto
+            context:
+                - create
+            type: dropdown
+            scope: filterDefault
+            dependsOn: Services
+            tab: ფილტრები
+        price_from:
+            label: 'ფასი (დან)'
+            span: auto
+            type: number
+            context:
+                - create
+            tab: ფილტრები
+        price_to:
+            label: 'ფასი (მდე)'
+            span: auto
+            type: number
+            context:
+                - create
+            tab: ფილტრები
+        region:
+            label: რეგიონი
+            showSearch: true
+            span: auto
+            type: dropdown
+            context:
+                - create
+            tab: ფილტრები

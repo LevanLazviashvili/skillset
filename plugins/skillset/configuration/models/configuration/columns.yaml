@@ -1,0 +1,12 @@
+columns:
+    title:
+        label: სათაური
+        type: text
+        searchable: true
+    value:
+        label: მნიშვნელობა
+        type: text
+    updated_at:
+        label: 'ბოლოს განახლდა'
+        type: datetime
+        format: d-m-Y H:i:s

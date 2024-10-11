@@ -1,0 +1,235 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('skillset/offers/offers') ?>">Offers</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+    <?= Form::open(['class' => 'layout']) ?>
+    <div id="form">
+
+        <div class="layout-row">
+            <?= $this->formRender() ?>
+        </div>
+
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-request-data="redirect:0"
+                    data-hotkey="ctrl+s, cmd+s"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    class="btn btn-primary">
+                    <?= e(trans('backend::lang.form.save')) ?>
+                </button>
+                <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter, cmd+enter"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    class="btn btn-default">
+                    <?= e(trans('backend::lang.form.save_and_close')) ?>
+                </button>
+                <button
+                    type="button"
+                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    data-request="onDelete"
+                    data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.form.confirm_delete')) ?>">
+                </button>
+
+                <span class="btn-text">
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('skillset/offers/offers') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+<div id="workers">
+    <div class="list-widget list-scrollable-container" id="Lists">
+        <div class="control-list list-scrollable" data-control="listwidget">
+            <table class="table data" data-control="rowlink">
+                <thead>
+                <tr>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>ID</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>სახელი, გვარი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>ტელეფონი/მეილი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>რეიტინგი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>შეთავაზების სტატუსი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>შემოთავაზებული დასრულების თარიღი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>წაუკითხავი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>ქმედება</a>
+                    </th>
+
+                </tr>
+                </thead>
+                <tbody id="t-body">
+                <?php foreach($this->vars['OfferedWorkers'] AS $Worker): ?>
+                <tr>
+                    <td><?=$Worker['details']['id'] ?? '' ?></td>
+                    <td><?=$Worker['details']['name'] ?? '' ?> <?=$Worker['details']['surname'] ?? '' ?></td>
+                    <td><?=$Worker['details']['username'] ?? '' ?></td>
+                    <td><?=$Worker['details']['rate'] ?? '' ?></td>
+                    <td><?=$this->vars['OfferStatuses'][$Worker['status_id']] ?? '' ?></td>
+                    <td><?=$Worker['end_date'] ?? '' ?></td>
+                    <td class="unread-messages" data-convid="<?=$Worker['conversation_id'] ?? '' ?>"><?=$Worker['unread_messages'] ?></td>
+                    <td>
+                        <div class="loading-indicator-container">
+                        <?php if ($Worker['status_id'] == 2 && $this->vars['OfferStatus'] > -1): ?>
+                            <button
+                                    type="submit"
+                                    data-request="onAcceptOffer"
+                                    data-request-data="refresh:1,worker_id:<?=$Worker['details']['id'] ?>"
+                                    data-load-indicator="გთხოვთ დაელოდოთ"
+                                    class="btn btn-primary">
+                                სამუშაოს დაწყება
+                            </button>
+                        <?php endif ?>
+                        <?php if ($Worker['status_id'] > 0 && $this->vars['formModel']->client_id == 0): ?>
+                                <?php $href =  Backend::url('/skillset/conversations/conversations/update/'.$Worker['conversation_id'])?>
+                                <button class="btn btn-default" type="button" onclick="location.href='<?=$href?>'">
+                                    ჩატზე გადასვლა
+                                </button>
+                        <?php endif ?>
+
+                            <?php if ($this->vars['formModel']->client_id != 0): ?>
+                            <button
+                                    type="submit"
+                                    data-request="onStartChat"
+                                    data-request-data="id:<?=$Worker['id'] ?>"
+                                    data-load-indicator="გთხოვთ დაელოდოთ"
+                                    class="btn btn-primary">
+                                დაკავშირება
+                            </button>
+                            <?php endif ?>
+
+
+                        <?php if (in_array($Worker['status_id'], [0,1,2])  && $this->vars['OfferStatus'] > -1): ?>
+                            <button
+                                    type="button"
+                                    data-request="onCancelOffer"
+                                    data-request-data="refresh:1,worker_id:<?=$Worker['details']['id'] ?>"
+                                    data-load-indicator="გთხოვთ დაელოდოთ"
+                                    class="btn btn-danger danger">
+                                გაუქმება
+                            </button>
+                        <?php endif ?>
+                        </div>
+                    </td>
+
+                </tr>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="application/javascript">
+        let offerID = "<?= $this->vars['formModel']->id ?>";
+        let clientID = "<?= $this->vars['formModel']->client_id ?>";
+
+        function UpdateOfferWorkers() {
+                   $.ajax({
+                       url: "<?=config('app.url')?>getofferworkers",
+                       data: {
+                           'secret': "<?=config('app.admin_secret')?>",
+                           'offer_id': offerID
+                       },
+                       success: function (result) {
+                           setTimeout(UpdateOfferWorkers, 2000);
+                           let data = result?.data;
+                           let html = '';
+                           $(data.OfferedWorkers).each(function(index, worker) {
+                               html += renderTemplate(worker, data.OfferStatuses, data.OfferStatus, clientID);
+                           });
+                           $('#t-body').html(html);
+
+                       }
+                   });
+        }
+
+        function renderTemplate(Worker, OfferStatuses, OfferStatus, ClientID)
+        {
+            let startWorkBtnTmp = `
+                <button
+                        type="submit"
+                        data-request="onAcceptOffer"
+                        data-request-data="refresh:1,worker_id:${Worker.details.id}"
+                        data-load-indicator="გთხოვთ დაელოდოთ"
+                        class="btn btn-primary">
+                    სამუშაოს დაწყება
+                </button>
+            `;
+            let chatBtnTmp = `
+                <button class="btn btn-default" type="button" onclick="location.href='${Worker.chat_url}'">
+                    ჩატზე გადასვლა
+                </button>
+            `;
+
+            let connectBtnTmp = `
+                <button
+                        type="submit"
+                        data-request="onStartChat"
+                        data-request-data="id:${Worker.id} ?>"
+                        data-load-indicator="გთხოვთ დაელოდოთ"
+                        class="btn btn-primary">
+                    დაკავშირება
+                </button>
+            `;
+
+            let cancelBtnTmp = `
+                <button
+                        type="button"
+                        data-request="onCancelOffer"
+                        data-request-data="refresh:1,worker_id:${Worker.details.id}"
+                        data-load-indicator="გთხოვთ დაელოდოთ"
+                        class="btn btn-danger danger">
+                    გაუქმება
+                </button>
+            `;
+
+            return `
+            <tr>
+                <td>${Worker?.details?.id}</td>
+                <td>${Worker?.details?.name} ${Worker?.details?.surname}</td>
+                <td>${Worker?.details.username}</td>
+                <td>${Worker?.details.rate}</td>
+                <td>${OfferStatuses[Worker.status_id]}</td>
+                <td>${Worker.end_date}</td>
+                <td>${Worker.unread_messages}</td>
+                <td>
+                    <div class="loading-indicator-container">
+                        ${ (parseInt(Worker.status_id) === 2 && OfferStatus > -1) ? startWorkBtnTmp : ''}
+                        ${ (parseInt(Worker.status_id) > 0 && parseInt(ClientID) === 0) ? chatBtnTmp : '' }
+                        ${ parseInt(ClientID) !== 0 ? connectBtnTmp : ''}
+                        ${([0,1,2].includes(parseInt(Worker.status_id)) && OfferStatus > -1) ? cancelBtnTmp : ''}
+                    </div>
+                </td>
+            </tr>
+            `
+        }
+
+        UpdateOfferWorkers();
+
+    </script>
+
+
+</div>
+
+    <?= Form::close() ?>

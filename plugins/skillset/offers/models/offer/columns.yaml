@@ -1,0 +1,24 @@
+columns:
+    id:
+        label: ID
+        type: number
+    title:
+        label: სათაური
+        type: text
+        searchable: true
+    client_id:
+        label: დამკვეთი
+        type: text
+        searchable: true
+        select: 'concat(name, '' '', surname)'
+        relation: Client
+    status_id:
+        label: მდგომარეობა
+        type: special_offer_statuses
+    created_at:
+        label: 'შექმნის თარიღი'
+        type: text
+    Unread:
+        label: 'წაუკითხავი შეტყობინება'
+        type: special_unread
+        sortable: false

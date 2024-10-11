@@ -1,0 +1,4 @@
+title: SubServices
+modelClass: skillset\Services\Models\SubService
+toolbar:
+    buttons: reorder_toolbar

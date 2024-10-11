@@ -1,0 +1,10 @@
+name: Units
+form: $/skillset/details/models/unit/fields.yaml
+modelClass: skillset\details\Models\Unit
+defaultRedirect: skillset/details/units
+create:
+    redirect: 'skillset/details/units/update/:id'
+    redirectClose: skillset/details/units
+update:
+    redirect: skillset/details/units
+    redirectClose: skillset/details/units

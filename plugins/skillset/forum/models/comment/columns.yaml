@@ -1,0 +1,21 @@
+columns:
+    id:
+        label: id
+        type: number
+    user_id:
+        label: user
+        type: text
+        select: 'concat('' ( '', id, '' ) '', name, '' '', surname)'
+        relation: user
+#    post_id:
+#        label: post_id
+#        type: number
+    comment:
+        label: comment
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

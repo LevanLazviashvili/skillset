@@ -1,0 +1,27 @@
+columns:
+    id:
+        label: ID
+        type: number
+        sortable: true
+    title:
+        label: სათაური
+        type: text
+        searchable: true
+        sortable: true
+    service_id:
+        label: სერვისი
+        type: text
+        searchable: true
+        sortable: true
+        select: title
+        relation: Service
+    default:
+        label: საწყისი
+        type: switch
+        searchable: true
+        sortable: true
+    user_id:
+        label: მომხმარებელი
+        type: Text
+        select: name
+        relation: User

@@ -1,0 +1,42 @@
+columns:
+    id:
+        label: id
+        type: number
+    offer_id:
+        label: შეთავაზების ID
+        type: text
+    application_id:
+        label: განაცხადის ID
+        type: text
+        select: application_id
+        relation: offer
+    seller_user:
+        label: გამყიდველი
+        type: text
+        sortable: false
+        cssClass: 'nowrap-text'
+        allowHtml: true
+    client_user:
+        label: კლიენტი
+        type: text
+        sortable: false
+        cssClass: 'nowrap-text'
+        allowHtml: true
+    app_percent_amount:
+        label: SKILLSET საკომ.
+        type: text
+    bank_percent_amount:
+        label: ბანკ საკომ.
+        type: text
+    payment_type:
+        label: გადახდის ტიპი
+        type: special_marketplace_payment_types
+    total_price:
+        label: ჯამი
+        type: text
+    completed_at:
+        label: დასრულების თარ.
+        type: text
+    status:
+        label: მდგომარეობა
+        type: special_marketplace_order_statuses

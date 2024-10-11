@@ -1,0 +1,27 @@
+plugin:
+    name: 'skillset.notifications::lang.plugin.name'
+    description: 'skillset.notifications::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-send
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: ნოტიფიკაციები
+        url: skillset/notifications/notifications
+        icon: icon-send
+        permissions:
+            - notifications
+        order: '502'
+        sideMenu:
+            side-menu-item:
+                label: ნოტიფიკაციები
+                url: skillset/notifications/notifications
+                icon: icon-send
+            side-menu-item2:
+                label: 'ნოტიფიკაციის მაგალითები'
+                url: skillset/notifications/notificationtemplates
+                icon: icon-align-center
+permissions:
+    notifications:
+        tab: skillset
+        label: notifications

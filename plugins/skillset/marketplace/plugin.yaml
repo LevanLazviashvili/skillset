@@ -1,0 +1,35 @@
+plugin:
+    name: 'skillset.marketplace::lang.plugin.name'
+    description: 'skillset.marketplace::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-shopping-cart
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: ყიდვა/გაყიდვა
+        url: skillset/marketplace/applications
+        icon: icon-shopping-cart
+        permissions:
+            - marketplace
+        order: '509'
+        sideMenu:
+            side-menu-item:
+                label: განცხადებები
+                url: skillset/marketplace/applications
+                icon: icon-shopping-cart
+            side-menu-item2:
+                label: შეთავაზებები
+                url: skillset/marketplace/offers
+                icon: icon-exchange
+                permissions:
+                    - marketplace
+            side-menu-item3:
+                label: შეკვეთები
+                url: skillset/marketplace/orders
+                icon: icon-shopping-cart
+                permissions:
+                    - marketplace
+permissions:
+    marketplace:
+        tab: skillset
+        label: marketplace

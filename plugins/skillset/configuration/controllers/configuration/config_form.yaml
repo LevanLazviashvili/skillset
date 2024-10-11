@@ -1,0 +1,10 @@
+name: Configuration
+form: $/skillset/configuration/models/configuration/fields.yaml
+modelClass: skillset\Configuration\Models\Configuration
+defaultRedirect: skillset/configuration/configuration
+create:
+    redirect: 'skillset/configuration/configuration/update/:id'
+    redirectClose: skillset/configuration/configuration
+update:
+    redirect: skillset/configuration/configuration
+    redirectClose: skillset/configuration/configuration

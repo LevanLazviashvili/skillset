@@ -1,0 +1,10 @@
+name: SubServices
+form: $/skillset/services/models/subservice/fields.yaml
+modelClass: skillset\Services\Models\SubService
+defaultRedirect: skillset/services/subservices
+create:
+    redirect: 'skillset/services/subservices/update/:id'
+    redirectClose: skillset/services/subservices
+update:
+    redirect: skillset/services/subservices
+    redirectClose: skillset/services/subservices

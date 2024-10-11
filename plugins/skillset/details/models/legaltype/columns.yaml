@@ -1,0 +1,12 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    title:
+        label: დასახელება
+        type: text
+    status_id:
+        label: ჩართული
+        type: switch

@@ -1,0 +1,35 @@
+fields:
+    description:
+        label: აღწერა
+        span: auto
+        type: text
+    images:
+        label: ფოტოები
+        mode: image
+        imageWidth: '260'
+        imageHeight: '260'
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: full
+        type: fileupload
+    video:
+        label: ვიდეო
+        mode: file
+        imageWidth: '300'
+        imageHeight: '200'
+        fileTypes: 'mp4,avi'
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: full
+        type: fileupload
+tabs:
+    fields:
+        comments:
+            span: full
+            type: partial
+            path: $/skillset/forum/controllers/posts/_comments.htm
+            tab: კომენტარები

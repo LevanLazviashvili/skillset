@@ -1,0 +1,19 @@
+fields:
+    status_id:
+        label: ჩართული
+        span: auto
+        default: 1
+        type: switch
+    Country:
+        label: ქვეყანა
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation
+tabs:
+    fields:
+        title:
+            label: დასახელება
+            span: auto
+            type: text
+            tab: თარგმნა

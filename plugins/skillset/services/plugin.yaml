@@ -1,0 +1,27 @@
+plugin:
+    name: 'skillset.services::lang.plugin.name'
+    description: 'skillset.services::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-wrench
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: სერვისები
+        url: skillset/services/services
+        icon: icon-wrench
+        permissions:
+            - services
+        order: '507'
+        sideMenu:
+            side-menu-item:
+                label: სერვისები
+                url: skillset/services/services
+                icon: icon-wrench
+            side-menu-item2:
+                label: მომსახურებები
+                url: skillset/services/subservices
+                icon: icon-plug
+permissions:
+    services:
+        tab: skillset
+        label: services

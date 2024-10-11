@@ -1,0 +1,27 @@
+plugin:
+    name: 'skillset.configuration::lang.plugin.name'
+    description: 'skillset.configuration::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-sliders
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: კონფიგურაცია
+        url: skillset/configuration/configuration
+        icon: icon-sliders
+        permissions:
+            - configuration
+        order: '500'
+        sideMenu:
+            side-menu-item:
+                label: კონფიგურაცია
+                url: skillset/configuration/configuration
+                icon: icon-sliders
+            side-menu-item2:
+                label: რეიტინგი-საკომისიო
+                url: skillset/configuration/ratecommissionconfiguration
+                icon: icon-star
+permissions:
+    configuration:
+        tab: skillset
+        label: configuration

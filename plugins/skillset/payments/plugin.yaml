@@ -1,0 +1,18 @@
+plugin:
+    name: 'skillset.payments::lang.plugin.name'
+    description: 'skillset.payments::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-money
+    homepage: ''
+navigation:
+    main-menu-item-payment:
+        label: გადახდები
+        url: skillset/payments/payments
+        icon: icon-money
+        permissions:
+            - payments
+        order: '506'
+permissions:
+    payments:
+        tab: skillset
+        label: payments

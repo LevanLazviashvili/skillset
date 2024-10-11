@@ -1,0 +1,10 @@
+name: Conversations
+form: $/skillset/conversations/models/conversation/fields.yaml
+modelClass: skillset\Conversations\Models\Conversation
+defaultRedirect: skillset/conversations/conversations
+create:
+    redirect: 'skillset/conversations/conversations/update/:id'
+    redirectClose: skillset/conversations/conversations
+update:
+    redirect: skillset/conversations/conversations
+    redirectClose: skillset/conversations/conversations

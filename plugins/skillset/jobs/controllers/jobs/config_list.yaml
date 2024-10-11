@@ -1,0 +1,15 @@
+title: Jobs
+modelClass: skillset\Jobs\Models\Job
+list: $/skillset/jobs/models/job/columns.yaml
+recordUrl: 'skillset/jobs/jobs/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: 1
+showCheckboxes: true
+defaultSort:
+    column: id
+    direction: desc
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

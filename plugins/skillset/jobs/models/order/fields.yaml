@@ -1,0 +1,107 @@
+fields:
+    id:
+        label: ID
+        span: auto
+        readOnly: 1
+        type: text
+    job:
+        label: დავალება
+        span: auto
+        readOnly: 1
+        type: relation
+        select: 'concat('' ( '', id, '' ) '', title)'
+        disabled: true
+    client_user:
+        label: დამკვეთი
+        span: auto
+        readOnly: 1
+        type: text
+        disabled: true
+    worker_user:
+        label: შემსრულებელი
+        span: auto
+        readOnly: 1
+        type: text
+        disabled: true
+    job[author_role]:
+        label: დავალების ავტორის როლი
+        span: auto
+        readOnly: 1
+        type: dropdown
+        options:
+            1: 'დამკვეთი'
+            2: 'შემსრულებელი'
+        disabled: true
+    status:
+        label: მდგომარეობა
+        showSearch: true
+        span: auto
+        type: dropdown
+        options:
+            1: 'გადახდის მოლოდინში'
+            2: 'სამუშაო დაიწყო'
+            3: 'მიღება ჩაბარება გაფორმდა'
+            4: 'დასრულებული'
+    created_at:
+        label: სამუშაოების დაწყების თარიღი
+        mode: datetime
+        format: d-m-Y
+        span: left
+        type: datepicker
+        disabled: 1
+        readOnly: 1
+    estimated_completed_date:
+        label: დასრულების სავ. თარიღი
+        mode: date
+        format: d-m-Y
+        span: left
+        type: datepicker
+        disabled: true
+        readonly: true
+    completed_at:
+        label: დასრულების თარიღი
+        mode: datetime
+        format: d-m-Y
+        span: left
+        type: datepicker
+        disabled: 1
+        readOnly: 1
+    app_percent:
+        label: skillset-ის საკომისიო პროცენტი
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    app_percent_amount:
+        label: skillset-ის საკომისიო თანხა
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    bank_percent:
+        label: ბანკის საკომისიო პროცენტი
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    bank_percent_amount:
+        label: ბანკის საკომისიო თანხა
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    total_price:
+        label: ჯამური თანხა
+        type: text
+        span: left
+        disabled: 1
+        readOnly: 1
+    payment_type:
+        label: გადახდის ტიპი
+        options:
+            - ქეში
+            - ბარათი
+        span: left
+        type: dropdown
+        disabled: 1
+        readOnly: 1

@@ -1,0 +1,207 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    id:
+        label: ID
+        tab: rainlab.user::lang.user.account
+        hidden: false
+        context: [ preview ]
+        span: left
+    name:
+        label: სახელი
+        span: auto
+        type: text
+
+    surname:
+        label: გვარი
+        span: auto
+
+    username:
+        label: მეილი/ტელეფონი
+        tab: rainlab.user::lang.user.account
+        hidden: false
+        context: [create, preview]
+        span: auto
+
+    status_id:
+        label: სტატუსი
+        options:
+            - 'არააქტიური'
+            - 'აქტიური'
+            - 'გადასამოწმებელი'
+        span: auto
+        context: [preview]
+        type: dropdown
+
+    id_number:
+        label: პირადი ნომერი
+        type: text
+        span: auto
+
+    user_type@create:
+        label: მომხ. ტიპი
+        options:
+            - 'დამკვეთი'
+            - 'შემსრულებელი'
+        showSearch: true
+        span: auto
+        type: dropdown
+
+    user_type@update:
+        label: მომხ. ტიპი
+        options:
+            - 'დამკვეთი'
+            - 'შემსრულებელი'
+        showSearch: true
+        span: auto
+        type: dropdown
+        disabled: true
+
+    OrgLegalType:
+        label: იურიდიული სტატუსი
+        nameFrom: title
+        span: auto
+        type: relation
+
+    org_title:
+        label: 'ორგანიზაციის სათაური'
+        type: text
+        span: auto
+    org_id_number:
+        label: ორგანიზაციის საიდენტიფიკაციო ნომერი
+        type: text
+        span: auto
+    Country:
+        label: ქვეყანა
+        type: relation
+        nameFrom: title
+        span: auto
+    Region:
+        label: რეგიონი
+        type: relation
+        nameFrom: title
+        span: auto
+    address:
+        label: მისამართი
+        type: text
+        span: auto
+
+    description:
+        label: მოკლე დახასიათება
+        span: auto
+        type: textarea
+
+    comment:
+        label: 'კომენტარი'
+        span: auto
+        type: textarea
+
+tabs:
+    fields:
+        bank_account_number:
+            label: ანგარიშის ნომერი
+            tab: rainlab.user::lang.user.account
+            span: left
+        balance:
+            label: ბალანსი
+            tab: rainlab.user::lang.user.account
+            span: left
+
+        app_commission_percent:
+            label: ინდივიდუალური საკომისიო %
+            tab: rainlab.user::lang.user.account
+            span: left
+            comment: 'ეხება მხოლოდ შემსრულებლებს'
+
+        commission_free_till:
+            label: 0% საკომისიოს გასვლის თარიღი
+            format: d-m-Y
+            type: datepicker
+            tab: rainlab.user::lang.user.account
+            span: left
+            comment: 'ეხება მხოლოდ შემსრულებლებს'
+
+        is_certified:
+            label: სერტიფიცირებულია
+            tab: rainlab.user::lang.user.account
+            span: left
+            type: switch
+
+        is_unactive:
+            label: არააქტიურია
+            tab: rainlab.user::lang.user.account
+            span: left
+            type: switch
+            comment: გაითვალისწინეთ რომ არააქტიური სტატუსის მოსახსნელად საჭიროა რომ მომხმარებლის ბალანსი იყოს დადებითი
+
+        is_busy:
+            label: დაკავებულია
+            tab: rainlab.user::lang.user.account
+            span: left
+            type: switch
+
+        password@create:
+            label: პაროლი
+            comment: შეიყვანეთ პაროლი
+            tab: rainlab.user::lang.user.account
+            type: password
+            span: left
+
+        password@update:
+            label: პაროლის შეცვლა
+            comment: პაროლის შესაცვლელად, შეიყვანეთ ახალი პაროლი
+            tab: rainlab.user::lang.user.account
+            type: password
+            span: left
+
+        password_confirmation:
+            label: გაიმეორეთ პაროლი
+            comment: პაროლის დასაფიქსირებლად გაიმეორეთ პაროლი
+            tab: rainlab.user::lang.user.account
+            type: password
+            span: right
+            context: [create, update]
+
+
+
+#        created_ip_address:
+#            label: rainlab.user::lang.user.created_ip_address
+#            span: auto
+#            disabled: true
+#            tab: rainlab.user::lang.user.account
+#            context: preview
+#
+#        last_ip_address:
+#            label: rainlab.user::lang.user.last_ip_address
+#            span: auto
+#            disabled: true
+#            tab: rainlab.user::lang.user.account
+#            context: preview
+
+secondaryTabs:
+    fields:
+
+        avatar:
+            label: ავატარი
+            type: fileupload
+            mode: image
+            imageHeight: 260
+            imageWidth: 260
+
+        id_card:
+            label: პირადობის წინა და უკანა მხარე
+            type: fileupload
+            mode: image
+            imageHeight: 260
+            imageWidth: 260
+
+        gallery:
+            label: გალერეა
+            type: fileupload
+            mode: image
+            imageHeight: 260
+            imageWidth: 260
+

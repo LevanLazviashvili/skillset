@@ -1,0 +1,5 @@
+title: Countries
+modelClass: skillset\details\Models\Country
+nameFrom: title
+toolbar:
+    buttons: reorder_toolbar

@@ -1,0 +1,5 @@
+title: Units
+modelClass: skillset\details\Models\Unit
+nameFrom: title
+toolbar:
+    buttons: reorder_toolbar

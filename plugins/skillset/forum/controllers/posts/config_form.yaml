@@ -1,0 +1,10 @@
+name: Posts
+form: $/skillset/forum/models/post/fields.yaml
+modelClass: Skillset\Forum\Models\Post
+defaultRedirect: skillset/forum/posts
+create:
+    redirect: 'skillset/forum/posts/update/:id'
+    redirectClose: skillset/forum/posts
+update:
+    redirect: skillset/forum/posts
+    redirectClose: skillset/forum/posts

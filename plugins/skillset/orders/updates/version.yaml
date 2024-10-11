@@ -1,0 +1,131 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table skillset_orders_'
+    - builder_table_create_skillset_orders_.php
+1.0.3:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders_.php
+1.0.4:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__2.php
+1.0.5:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__3.php
+1.0.6:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__4.php
+1.0.7:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__5.php
+1.0.8:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__6.php
+1.0.9:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__7.php
+1.0.10:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__8.php
+1.0.11:
+    - 'Created table skillset_orders_sub_services'
+    - builder_table_create_skillset_orders_sub_services.php
+1.0.12:
+    - 'Updated table skillset_orders_sub_services'
+    - builder_table_update_skillset_orders_sub_services.php
+1.0.13:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__9.php
+1.0.14:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__10.php
+1.0.15:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__11.php
+1.0.16:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__12.php
+1.0.17:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__13.php
+1.0.18:
+    - 'Updated table skillset_orders_sub_services'
+    - builder_table_update_skillset_orders_services.php
+1.0.19:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__14.php
+1.0.20:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__15.php
+1.0.21:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__16.php
+1.0.22:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__17.php
+1.0.23:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__18.php
+1.0.24:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__19.php
+1.0.25:
+    - 'Created table skillset_orders_fillbalance'
+    - builder_table_create_skillset_orders_fillbalance.php
+1.0.26:
+    - 'Updated table skillset_orders_fillbalance'
+    - builder_table_update_skillset_orders_fillbalance.php
+1.0.27:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__20.php
+1.0.28:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders_.php
+1.0.29:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__2.php
+1.0.30:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__3.php
+1.0.31:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__4.php
+1.0.32:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__5.php
+1.0.33:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__6.php
+1.0.34:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__7.php
+1.0.35:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__8.php
+1.0.36:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__9.php
+1.0.37:
+    - 'Updated table skillset_orders_services'
+    - builder_table_update_skillset_orders_services.php
+1.0.38:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__10.php
+1.0.39:
+    - 'Created table skillset_orders_services_tmp'
+    - builder_table_create_skillset_orders_services_tmp.php
+1.0.40:
+    - 'Drop table skillset_orders_services_tmp'
+    - builder_table_delete_skillset_orders_services_tmp.php
+1.0.41:
+    - 'Updated table skillset_orders_services'
+    - builder_table_update_skillset_orders_services_2.php
+1.0.42:
+    - 'Updated table skillset_orders_services'
+    - builder_table_update_skillset_orders_services_3.php
+1.0.43:
+    - 'Created table skillset_orders_services_tmp'
+    - builder_table_create_skillset_orders_services_tmp_2.php
+1.0.44:
+    - 'Created table skillset_orders_adverts'
+    - builder_table_create_skillset_orders_adverts.php

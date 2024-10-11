@@ -1,0 +1,10 @@
+name: Orders
+modelClass: skillset\Orders\Models\Order
+form: $/skillset/orders/models/order/fields.yaml
+defaultRedirect: skillset/orders/orders
+create:
+    redirect: 'skillset/orders/orders/update/:id'
+    redirectClose: skillset/orders/orders
+update:
+    redirect: skillset/orders/orders
+    redirectClose: skillset/orders/orders

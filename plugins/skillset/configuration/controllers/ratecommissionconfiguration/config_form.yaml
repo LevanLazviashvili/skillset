@@ -1,0 +1,10 @@
+name: RateCommissionConfiguration
+form: $/skillset/configuration/models/ratecommissionconfiguration/fields.yaml
+modelClass: skillset\Configuration\Models\RateCommissionConfiguration
+defaultRedirect: skillset/configuration/ratecommissionconfiguration
+create:
+    redirect: 'skillset/configuration/ratecommissionconfiguration/update/:id'
+    redirectClose: skillset/configuration/ratecommissionconfiguration
+update:
+    redirect: skillset/configuration/ratecommissionconfiguration
+    redirectClose: skillset/configuration/ratecommissionconfiguration

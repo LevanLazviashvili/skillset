@@ -1,0 +1,27 @@
+<!-- Individual values -->
+<?php foreach ($locales as $code => $name): ?>
+    <?php
+        $value = $this->getLocaleValue($code);
+        $value = $this->isLocaleFieldJsonable() ? json_encode($value) : $value;
+    ?>
+    <br>
+    <label><?=$name ?></label>
+    <?php if ($field->config['type'] == 'mltext'): ?>
+        <input
+            type="text"
+            class="form-control"
+            name="<?= $field->getName('RLTranslate['.$code.']') ?>"
+            value="<?= e($value) ?>"
+            data-locale-value="<?= $code ?>"
+            <?= $field->getAttributes() ?>
+        />
+    <?php else: ?>
+        <textarea
+            name="<?= $field->getName('RLTranslate['.$code.']')?>"
+            id="<?= $field->getId('placeholderField') ?>"
+            placeholder="<?= e(trans($field->placeholder)) ?>"
+            class="form-control field-textarea size-<?= $field->size ?>"
+            autocomplete="off"
+            <?= $field->getAttributes() ?>><?= e($value) ?></textarea>
+    <?php endif ?>
+<?php endforeach ?>

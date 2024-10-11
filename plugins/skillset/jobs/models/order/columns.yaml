@@ -1,0 +1,42 @@
+columns:
+    id:
+        label: id
+        type: number
+    offer_id:
+        label: offer_id
+        type: text
+    job_id:
+        label: job_id
+        type: text
+        select: job_id
+        relation: offer
+    client_user:
+        label: client
+        type: text
+        sortable: false
+        cssClass: 'nowrap-text'
+        allowHtml: true
+    worker_user:
+        label: worker
+        type: text
+        sortable: false
+        cssClass: 'nowrap-text'
+        allowHtml: true
+    app_percent_amount:
+        label: app_percent_amount
+        type: text
+    bank_percent_amount:
+        label: bank_percent_amount
+        type: text
+    payment_type:
+        label: payment
+        type: special_job_payment_types
+    total_price:
+        label: total
+        type: text
+    completed_at:
+        label: completed
+        type: text
+    status:
+        label: status
+        type: special_job_order_statuses

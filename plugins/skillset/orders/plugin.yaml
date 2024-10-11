@@ -1,0 +1,18 @@
+plugin:
+    name: 'skillset.orders::lang.plugin.name'
+    description: 'skillset.orders::lang.plugin.description'
+    author: leve
+    icon: oc-icon-edit
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: შეკვეთები
+        url: skillset/orders/orders
+        icon: icon-edit
+        permissions:
+            - orders
+        order: '505'
+permissions:
+    orders:
+        tab: skillset
+        label: orders

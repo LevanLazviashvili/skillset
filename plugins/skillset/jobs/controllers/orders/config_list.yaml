@@ -1,0 +1,12 @@
+list: $/skillset/jobs/models/order/columns.yaml
+recordUrl: 'skillset/jobs/orders/update/:id'
+modelClass: skillset\Jobs\Models\Order
+title: Orders
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

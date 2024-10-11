@@ -1,0 +1,19 @@
+fields:
+    Service:
+        label: სერვისი
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation
+    default:
+        label: საწყისი
+        span: auto
+        default: 1
+        type: switch
+tabs:
+    fields:
+        title:
+            label: სათაური
+            span: auto
+            type: text
+            tab: თარგმნა

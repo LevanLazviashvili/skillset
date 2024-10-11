@@ -1,0 +1,88 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('rainlab/user/users') ?>"><?= e(trans('rainlab.user::lang.users.menu_label')) ?></a></li>
+        <li><?= e(trans($this->pageTitle)) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?php Block::put('form-contents') ?>
+
+        <?php if ($formModel->is_guest): ?>
+            <?= $this->makePartial('hint_guest') ?>
+        <?php elseif ($formModel->isBanned()): ?>
+            <?= $this->makePartial('hint_banned') ?>
+        <?php elseif ($formModel->trashed()): ?>
+            <?= $this->makePartial('hint_trashed') ?>
+        <?php endif ?>
+
+        <div class="scoreboard">
+            <div data-control="toolbar">
+                <?= $this->makePartial('preview_scoreboard') ?>
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <?= $this->makePartial('preview_toolbar') ?>
+            </div>
+        </div>
+
+        <div class="layout-row min-size">
+            <?= $this->formRender(['preview' => true, 'section' => 'outside']) ?>
+        </div>
+
+        <div class="layout-row">
+            <?= $this->formRender(['preview' => true, 'section' => 'primary']) ?>
+            <hr>
+            <div id="Form-field-User-services-group"><label class="services-label"><h4>სერვისები</h4></label><hr></div>
+            <?= $this->relationRender('userServices', ['readOnly' => true]) ?>
+        </div>
+
+    <?php Block::endPut() ?>
+
+    <?php Block::put('form-sidebar') ?>
+        <div class="hide-tabs"><?= $this->formRender(['preview' => true, 'section' => 'secondary']) ?></div>
+    <?php Block::endPut() ?>
+
+    <?php Block::put('body') ?>
+        <?= Form::open(['class'=>'layout stretch']) ?>
+            <?= $this->makeLayout('form-with-sidebar') ?>
+        <?= Form::close() ?>
+
+
+
+
+    <script type="application/javascript">
+        $(document).ready(function () {
+            let updatedFields = <?=$formModel->updated_fields ?>;
+            if (typeof updatedFields !== 'object' || updatedFields === null) {
+                return;
+            }
+            let keys = Object.keys(updatedFields);
+            $(keys).each(function(key,item){
+                let element = $('#Form-field-User-'+item+'-group');;
+                if (element) {
+                    element.prepend('<span class="oc-icon-pencil"></span>');
+                    element.find('.form-control').addClass('edited');
+                    element.find('.upload-object').addClass('edited');
+                    element.find('.services-label').addClass('edited');
+                    element.find('.form-control').prepend('<s>'+updatedFields[item]+'</s> ');
+                }
+            });
+        });
+
+    </script>
+    <?php Block::endPut() ?>
+
+<?php else: ?>
+
+    <div class="padded-container container-flush">
+        <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+        <p><a href="<?= Backend::url('rainlab/user/users') ?>" class="btn btn-default"><?= e(trans('rainlab.user::lang.users.return_to_list')) ?></a></p>
+    </div>
+
+<?php endif ?>
+
+

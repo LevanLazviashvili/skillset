@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+/vendor
+.env
+/storage/app/
+/plugins/october/drivers/vendor/
+storage/logs/
+/storage/

@@ -1,0 +1,33 @@
+columns:
+    id:
+        label: ID
+        type: number
+        sortable: true
+    created_by:
+        label: მომხმარებელი
+        type: text
+        searchable: true
+        select: 'concat(name, '' '', surname)'
+        relation: CreatedBy
+    conversation_admin_id:
+        label: 'დაკავშირებული ოპერატორი'
+        type: text
+        searchable: false
+        select: 'concat(name, '' '', surname)'
+        relation: ConversationAdmin
+    created_at:
+        label: created_at
+        type: datetime
+        format: 'd-m-Y H:i:s'
+    unread:
+        label: 'წაუკითხავი მესიჯები'
+        type: number
+        relation: unread
+        useRelationCount: 'true'
+    lastMessage:
+        label: 'ბოლო მესიჯი'
+        type: number
+        searchable: false
+        sortable: false
+        select: 'DATE_FORMAT(max(updated_at), "%d-%m-%Y %H:%i:%s")'
+        relation: lastMessage

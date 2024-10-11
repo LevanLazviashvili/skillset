@@ -1,0 +1,15 @@
+fields:
+  title:
+    label: დასახელება
+    span: auto
+    type: text
+  amount:
+    label: რაოდენობა
+    type: text
+  unit:
+    label: ერთეული
+    type: relation
+    nameFrom: title
+  unit_price:
+    label: ერთეულის ფასი
+    type: text

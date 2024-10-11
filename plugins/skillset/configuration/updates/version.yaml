@@ -1,0 +1,17 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table skillset_configuration_'
+    - builder_table_create_skillset_configuration_.php
+1.0.3:
+    - 'Updated table skillset_configuration_'
+    - builder_table_update_skillset_configuration_.php
+1.0.4:
+    - 'Updated table skillset_configuration_'
+    - builder_table_update_skillset_configuration__2.php
+1.0.5:
+    - 'Created table skillset_configuration_rate_commision'
+    - builder_table_create_skillset_configuration_rate_commision.php
+1.0.6:
+    - 'Updated table skillset_configuration_rate_commission'
+    - builder_table_update_skillset_configuration_rate_commission.php

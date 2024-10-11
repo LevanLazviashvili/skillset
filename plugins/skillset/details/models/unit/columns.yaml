@@ -1,0 +1,13 @@
+columns:
+    id:
+        label: ID
+        type: number
+    title:
+        label: დასახელება
+        type: text
+    status_id:
+        label: ჩართლი
+        type: switch
+    sort_order:
+        label: მიმდევრობა
+        type: number

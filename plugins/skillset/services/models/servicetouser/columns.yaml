@@ -1,0 +1,29 @@
+columns:
+    id:
+        label: ID
+        type: number
+        sortable: true
+    service_id:
+        select: 'title'
+        relation: service
+        label: კატეგორია
+        type: text
+    service_sub_id:
+        select: 'title'
+        relation: subService
+        label: სერვისი
+        type: text
+    amount:
+        label: რაოდენობა
+        type: text
+    unit_id:
+        label: ერთეული
+        select: 'title'
+        relation: unit
+        type: text
+    price_from:
+        label: მინიმალური ფასი
+        type: number
+    price_to:
+        label: მაქსიმალური ფასი
+        type: number

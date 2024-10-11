@@ -1,0 +1,43 @@
+scopes:
+  rating:
+    label: რეიტინგი
+    type: numberrange
+    conditions: rate >= ':min' AND rate <= ':max'
+  user_type:
+    label: მომხმარებლის ტიპი
+    type: group
+    conditions: user_type in (:filtered)
+    options:
+      0: დამკვეთი
+      1: შემსრულებელი
+  app_commission_percent:
+    label: ინდივიდუალური საკომისიო
+    type: switch
+    conditions:
+      - app_commission_percent is null
+      - app_commission_percent > 0
+  region_id:
+    label: რეგიონი
+    modelClass: skillset\Details\Models\Region
+    conditions: region_id in (:filtered)
+    nameFrom: title
+  is_certified:
+    label: სერტიფიცირებულია
+    type: switch
+    conditions:
+      - is_certified = 0
+      - is_certified > 0
+  service:
+    label: კატეგორია
+    modelClass: skillset\Services\Models\ServiceToUser
+    conditions: id IN (SELECT user_id FROM skillset_services_sub_to_user WHERE service_id IN (:filtered))
+    nameFrom: title
+    options: listActiveServices
+
+  sub_service:
+    label: სერვისი
+    modelClass: skillset\Services\Models\ServiceToUser
+    conditions: id IN (SELECT user_id FROM skillset_services_sub_to_user WHERE services_sub_id IN (:filtered))
+    nameFrom: title
+    dependsOn: service
+    options: listActiveSubServices

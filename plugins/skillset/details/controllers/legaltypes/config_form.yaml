@@ -1,0 +1,10 @@
+name: LegalTypes
+form: $/skillset/details/models/legaltype/fields.yaml
+modelClass: skillset\details\Models\LegalType
+defaultRedirect: skillset/details/legaltypes
+create:
+    redirect: 'skillset/details/legaltypes/update/:id'
+    redirectClose: skillset/details/legaltypes
+update:
+    redirect: skillset/details/legaltypes
+    redirectClose: skillset/details/legaltypes

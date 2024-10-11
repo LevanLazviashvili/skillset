@@ -1,0 +1,36 @@
+columns:
+    id:
+        label: ID
+        type: number
+    payment_type:
+        label: დანიშნულება
+        type: special_payment_type
+        sortable: true
+    price:
+        label: თანხა
+        type: number
+    user_id:
+        label: მომხმარებელი
+        type: text
+        select: 'concat(name, '' '', surname)'
+        relation: User
+    ipay_payment_id:
+        label: 'გადახდსი ID'
+        type: text
+    card_type:
+        label: 'ბარათის ტიპი'
+        type: text
+    pan:
+        label: 'ბარათის ნომერი'
+        type: text
+    order_id:
+        label: 'შეკვეთის ID'
+        type: text
+    status:
+        label: სტატუსი
+        type: special_status
+    created_at:
+        label: თარიღი
+        type: datetime
+        format: 'd-m-Y H:i:s'
+        sortable: true

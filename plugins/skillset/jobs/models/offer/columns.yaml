@@ -1,0 +1,37 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+    job_id:
+        label: დავალება
+        type: number
+        searchable: true
+        select: 'concat('' ( '', id, '' ) '', title)'
+        relation: job
+    author_id:
+        label: ავტორი
+        type: number
+        searchable: true
+        select: 'concat(name, '' '', surname)'
+        relation: author
+    status:
+        label: სტატუსი
+        type: special_job_offer_statuses
+    created_at:
+        label: 'გამოქვეყნების თარიღი'
+        type: datetime
+    updated_at:
+        label: 'განახლების თარიღი'
+        type: datetime
+    unread_count:
+        label: 'წაუკითხავი შეტყობინება'
+        type: special_job_message_unread
+        relation: unread_count
+        useRelationCount: true
+        sortable: false
+    chat_button:
+        label: 'ჩატი'
+        type: partial
+        cssClass: nolink
+        path: $/skillset/jobs/controllers/offers/_open_chat.htm

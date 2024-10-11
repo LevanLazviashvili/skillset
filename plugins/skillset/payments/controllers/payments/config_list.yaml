@@ -1,0 +1,11 @@
+list: $/skillset/payments/models/payment/columns.yaml
+modelClass: skillset\Payments\Models\Payment
+title: Payments
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

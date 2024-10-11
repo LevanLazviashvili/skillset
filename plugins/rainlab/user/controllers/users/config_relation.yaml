@@ -1,0 +1,8 @@
+userServices:
+    label: 'მომხმარებლის სერვისები'
+    view:
+      list: $/skillset/services/models/servicetouser/columns.yaml
+      toolbarButtons: true
+      showCheckboxes: true
+    manage:
+      form: $/skillset/services/models/servicetouser/fields.yaml

@@ -1,0 +1,12 @@
+list: $/skillset/offers/models/offer/columns.yaml
+modelClass: skillset\Offers\Models\Offer
+title: Offers
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'skillset/offers/offers/update/:id'

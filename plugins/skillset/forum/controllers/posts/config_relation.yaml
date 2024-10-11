@@ -1,0 +1,9 @@
+postComments:
+    label: 'კომენტარები'
+    view:
+      list: $/skillset/forum/models/comment/columns.yaml
+      toolbarButtons: delete
+      showCheckboxes: true
+      recordsPerPage: 10
+    manage:
+      form: $/skillset/forum/models/comment/fields.yaml

@@ -1,0 +1,10 @@
+name: Offers
+form: $/skillset/offers/models/offer/fields.yaml
+modelClass: skillset\offers\Models\Offer
+defaultRedirect: skillset/offers/offers
+create:
+    redirect: 'skillset/offers/offers'
+    redirectClose: skillset/offers/offers
+update:
+    redirect: skillset/offers/offers
+    redirectClose: skillset/offers/offers

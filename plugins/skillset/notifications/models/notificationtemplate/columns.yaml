@@ -1,0 +1,10 @@
+columns:
+    id:
+        label: ID
+        type: text
+        searchable: true
+        sortable: true
+    title:
+        label: სათაური
+        type: text
+        searchable: true

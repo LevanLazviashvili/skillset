@@ -1,0 +1,18 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    title:
+        label: სათაური
+        type: text
+    video_url:
+        label: ვიდეო
+        type: text
+    status_id:
+        label: ჩართული
+        type: switch
+    sort_order:
+        label: თანმიმდევრობა
+        type: number

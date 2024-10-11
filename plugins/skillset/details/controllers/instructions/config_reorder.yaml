@@ -1,0 +1,5 @@
+title: Instructions
+modelClass: skillset\details\Models\Instruction
+nameFrom: title
+toolbar:
+    buttons: reorder_toolbar

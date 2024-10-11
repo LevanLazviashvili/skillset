@@ -1,0 +1,39 @@
+columns:
+    id:
+        label: 'id'
+        type: 'text'
+    title:
+        label: 'სათაური'
+        type: text
+    client_id:
+        label: 'შემკვეთი'
+        type: text
+        searchable: true
+        select: 'concat(name, '' '', surname)'
+        relation: Client1
+    worker_id:
+        label: 'შემსრულებელი'
+        type: text
+        searchable: true
+        select: 'concat(name, '' '', surname)'
+        relation: Worker1
+    status_id:
+        label: 'მდგომარეობა'
+        type: special_order_statuses
+    start_date:
+        label: 'დაწყების თარ.'
+        type: datetime
+        format: 'd-m-Y H:i:s'
+    ended_at:
+        label: 'დასრულების თარ.'
+        type: datetime
+        format: 'd-m-Y H:i:s'
+    bank_percent_amount:
+        label: 'ბანკ. საკომ.'
+        type: text
+    app_percent_amount:
+        label: 'skillset საკომ.'
+        type: text
+    total_price:
+        label: 'ჯამი'
+        type: text

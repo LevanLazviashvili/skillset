@@ -1,0 +1,10 @@
+name: Instructions
+form: $/skillset/details/models/instruction/fields.yaml
+modelClass: skillset\details\Models\Instruction
+defaultRedirect: skillset/details/instructions
+create:
+    redirect: 'skillset/details/instructions/update/:id'
+    redirectClose: skillset/details/instructions
+update:
+    redirect: skillset/details/instructions
+    redirectClose: skillset/details/instructions

@@ -1,0 +1,10 @@
+name: Texts
+form: $/skillset/details/models/texts/fields.yaml
+modelClass: skillset\details\Models\Texts
+defaultRedirect: skillset/details/texts
+create:
+    redirect: 'skillset/details/texts/update/:id'
+    redirectClose: skillset/details/texts
+update:
+    redirect: skillset/details/texts
+    redirectClose: skillset/details/texts

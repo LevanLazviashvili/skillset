@@ -1,0 +1,70 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    id:
+        label: rainlab.user::lang.user.id
+#        invisible: true
+
+    full_name:
+        label: სახელი გვარი
+        select: concat(name, ' ', surname)
+        searchable: true
+
+    org_title:
+        label: ორგანიზაციის დასახელება
+        searchable: true
+
+    username:
+        label: მეილი/ტელეფონი
+        searchable: true
+
+    user_type:
+        label: მომხ. ტიპი
+        type: special_user_type
+        sortable: true
+
+    org_legal_type_id:
+        label: იურიდიული სტატუსი
+        select: 'title'
+        relation: OrgLegalType
+
+    balance:
+        label: ბალანსი
+
+    bank_account_number:
+        label: ანგარიშის ნ.
+
+    rate:
+        label: რეიტინგი
+
+    app_commission_percent:
+        label: ინდივ. საკომისიო %
+
+    created_at:
+        label: რეგისტრაციის თარიღი
+        type: datetime
+        format: d-m-Y H:i:s
+
+    status_id:
+        label: სტატუსი
+        type: special_status_id
+        sortable: true
+    is_busy:
+        label: დაკავებულობა
+        type: special_is_busy
+    is_unactive:
+        label: მდგომარეობა
+        type: special_is_unactive
+#    userServices:
+#        label: სერვისები
+#        type: special_services_count
+    user_services_count:
+        label: სერვისები
+        type: number
+        relation: services_count
+        useRelationCount: true
+
+

@@ -1,0 +1,7 @@
+name: Applications
+modelClass: skillset\Marketplace\Models\Application
+form: $/skillset/marketplace/models/application/fields.yaml
+defaultRedirect: skillset/marketplace/applications
+update:
+    redirect: skillset/marketplace/applications
+    redirectClose: skillset/marketplace/applications

@@ -1,0 +1,6 @@
+plugin:
+    name: 'skillset.rating::lang.plugin.name'
+    description: 'skillset.rating::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-star
+    homepage: ''

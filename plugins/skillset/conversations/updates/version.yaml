@@ -1,0 +1,35 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table skillset_conversations_'
+    - builder_table_create_skillset_conversations_.php
+1.0.3:
+    - 'Created table skillset_conversations_users'
+    - builder_table_create_skillset_conversations_users.php
+1.0.4:
+    - 'Created table skillset_conversations_messages'
+    - builder_table_create_skillset_conversations_messages.php
+1.0.5:
+    - 'Updated table skillset_conversations_'
+    - builder_table_update_skillset_conversations_.php
+1.0.6:
+    - 'Updated table skillset_conversations_messages'
+    - builder_table_update_skillset_conversations_messages.php
+1.0.7:
+    - 'Created table skillset_conversations_message_images'
+    - builder_table_create_skillset_conversations_message_images.php
+1.0.8:
+    - 'Updated table skillset_conversations_messages'
+    - builder_table_update_skillset_conversations_messages.php
+1.0.9:
+    - 'Updated table skillset_conversations_'
+    - builder_table_update_skillset_conversations_.php
+1.0.10:
+    - 'Updated table skillset_conversations_'
+    - builder_table_update_skillset_conversations__2.php
+1.0.11:
+    - 'Updated table skillset_conversations_'
+    - builder_table_update_skillset_conversations__3.php
+1.0.12:
+    - 'Updated table skillset_conversations_'
+    - builder_table_update_skillset_conversations__4.php

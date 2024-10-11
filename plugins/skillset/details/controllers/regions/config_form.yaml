@@ -1,0 +1,10 @@
+name: Regions
+form: $/skillset/details/models/region/fields.yaml
+modelClass: skillset\details\Models\Region
+defaultRedirect: skillset/details/regions
+create:
+    redirect: 'skillset/details/regions/update/:id'
+    redirectClose: skillset/details/regions
+update:
+    redirect: skillset/details/regions
+    redirectClose: skillset/details/regions

@@ -1,0 +1,17 @@
+plugin:
+    name: 'skillset.forum::lang.plugin.name'
+    description: 'skillset.forum::lang.plugin.description'
+    author: Skillset
+    icon: oc-icon-users
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: ფორუმი
+        url: skillset/forum/posts
+        icon: icon-users
+        order: '510'
+        sideMenu:
+            side-menu-item:
+                label: პოსტები
+                url: skillset/forum/posts
+                icon: icon-pencil-square-o

@@ -1,0 +1,11 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table skillset_forum_posts'
+    - builder_table_create_skillset_forum_posts.php
+1.0.3:
+    - 'Created table skillset_forum_post_comments'
+    - builder_table_create_skillset_forum_post_comments.php
+1.0.4:
+    - 'Created table skillset_forum_likes'
+    - builder_table_create_skillset_forum_likes.php

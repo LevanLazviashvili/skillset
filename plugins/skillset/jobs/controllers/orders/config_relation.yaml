@@ -1,0 +1,17 @@
+orderServices:
+    label: 'შესრულებული სამუშაოები'
+    view:
+      list: $/skillset/jobs/models/service/columns.yaml
+      toolbarButtons: false
+      showCheckboxes: false
+    manage:
+      form: $/skillset/jobs/models/service/fields.yaml
+
+offerServices:
+  label: 'წინასწარ შექმნილი ინვოისი'
+  view:
+    list: $/skillset/jobs/models/service/columns.yaml
+    toolbarButtons: false
+    showCheckboxes: false
+  manage:
+    form: $/skillset/jobs/models/service/fields.yaml

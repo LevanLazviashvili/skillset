@@ -1,0 +1,5 @@
+title: LegalTypes
+modelClass: skillset\details\Models\LegalType
+nameFrom: title
+toolbar:
+    buttons: reorder_toolbar

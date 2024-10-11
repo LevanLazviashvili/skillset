@@ -1,0 +1,74 @@
+fields:
+    title:
+        label: სათაური
+        span: left
+        required: 1
+        context:
+            - update
+            - preview
+        type: text
+    active:
+        label: აქტიური
+        span: auto
+        context:
+            - update
+            - preview
+        type: switch
+    description:
+        label: აღწერა
+        size: ''
+        span: left
+        required: 1
+        context:
+            - update
+            - preview
+        type: richeditor
+    price:
+        label: ფასი
+        span: left
+        cssClass: ''
+        context:
+            - update
+            - preview
+        attributes:
+            style: 'text-align:left'
+        type: number
+    region:
+        label: რეგიონი
+        nameFrom: title
+        descriptionFrom: description
+        span: left
+        context:
+            - update
+            - preview
+        type: relation
+secondaryTabs:
+    fields:
+        images:
+            label: ფოტოები
+            mode: image
+            imageWidth: 260
+            imageHeight: 260
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: left
+            context:
+                - update
+                - preview
+            type: fileupload
+            tab: მედია
+        video:
+            label: ვიდეო
+            mode: file
+            imageWidth: '300'
+            imageHeight: '200'
+            fileTypes: 'mp4,avi'
+            useCaption: true
+            thumbOptions:
+                mode: exact
+                extension: auto
+            span: left
+            type: fileupload
+            tab: მედია

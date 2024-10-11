@@ -1,0 +1,38 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+    application_id:
+        label: განაცხადი
+        type: number
+        searchable: true
+        select: 'concat('' ( '', id, '' ) '', title)'
+        relation: application
+    user_id:
+        label: მომხმარებელი
+        type: number
+        searchable: true
+        select: 'concat(name, '' '', surname)'
+        relation: user
+    status:
+        label: სტატუსი
+        type: special_marketplace_offer_statuses
+        searchable: false
+    created_at:
+        label: 'გამოქვეყნების თარიღი'
+        type: datetime
+    updated_at:
+        label: 'განახლების თარიღი'
+        type: datetime
+    unread_count:
+        label: 'წაუკითხავი შეტყობინება'
+        type: special_marketplace_message_unread
+        relation: unread_count
+        useRelationCount: true
+        sortable: false
+    chat_button:
+        label: 'ჩატი'
+        type: partial
+        cssClass: nolink
+        path: $/skillset/marketplace/controllers/offers/_open_chat.htm

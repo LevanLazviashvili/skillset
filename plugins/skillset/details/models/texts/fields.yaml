@@ -1,0 +1,13 @@
+tabs:
+    fields:
+        title:
+            label: სათაური
+            span: auto
+            type: text
+            tab: თარგმნა
+        description:
+            label: აღწერა
+            size: giant
+            span: left
+            type: textarea
+            tab: თარგმნა

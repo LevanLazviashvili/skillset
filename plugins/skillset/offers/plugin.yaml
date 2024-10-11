@@ -1,0 +1,18 @@
+plugin:
+    name: 'skillset.offers::lang.plugin.name'
+    description: 'skillset.offers::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-adjust
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: შეთავაზებები
+        url: skillset/offers/offers
+        icon: icon-exchange
+        permissions:
+            - offers
+        order: '504'
+permissions:
+    offers:
+        tab: skillset
+        label: offers

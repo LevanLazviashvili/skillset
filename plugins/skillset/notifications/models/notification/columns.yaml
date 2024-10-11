@@ -1,0 +1,23 @@
+columns:
+    id:
+        label: ID
+        type: number
+    template_id:
+        label: მაგალითი
+        type: text
+        searchable: true
+        sortable: true
+        select: title
+        relation: Template
+    send_to:
+        label: 'ვის გაეგზავნა'
+        type: special_send_to
+        sortable: true
+    status_id:
+        label: აქტიური
+        type: switch
+        searchable: true
+    last_send_date:
+        label: 'ბოლოს გაიგზავნა'
+        type: datetime
+        format: 'd-m-Y H:i:s'

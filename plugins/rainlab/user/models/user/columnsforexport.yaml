@@ -1,0 +1,31 @@
+columns:
+    id:
+        label: ID
+        type: text
+    full_name:
+        label: სახელი გვარი
+        select: concat(name, ' ', surname)
+        searchable: true
+    org_title:
+        label: ორგანიზაციის დასახელება
+    username:
+        label: მეილი/ტელეფონი
+        searchable: true
+    user_type:
+        label: მომხ. ტიპი
+        type: special_user_type
+        sortable: true
+    org_legal_type_id:
+        label: იურიდიული სტატუსი
+    id_number:
+        label: პირადი ნომერი
+    is_unactive:
+        label: სტატუსი
+
+    balance:
+        label: ბალანსი
+
+    created_at:
+        label: რეგისტრაციის თარიღი
+        type: timetense
+

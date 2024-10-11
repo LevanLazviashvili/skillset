@@ -1,0 +1,31 @@
+<?php Block::put('breadcrumb') ?>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?= Form::open(['class' => 'layout']) ?>
+        <div class="layout-row">
+            <?= $this->formRender() ?>
+        </div> <br>
+        <div class="form-buttons">
+                <div class="loading-indicator-container">
+                        <?php if ($this->widget->form->model->status_id != 0): ?>
+                    <button
+                        type="button"
+                        data-request="onLeaveChat"
+                        data-request-data="close:1"
+                        data-hotkey="ctrl+enter, cmd+enter"
+                        data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                        class="btn btn-default">
+                        გასვლა
+                    </button>
+                    <?php endif ?>
+                </div>
+
+        </div>
+    <?= Form::close() ?>
+
+<?php else: ?>
+    <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+    <p><a href="<?= Backend::url('skillset/conversations/conversations') ?>" class="btn btn-default"><?= e(trans('backend::lang.form.return_to_list')) ?></a></p>
+<?php endif ?>

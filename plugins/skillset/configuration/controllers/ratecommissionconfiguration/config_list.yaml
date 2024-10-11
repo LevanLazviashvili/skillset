@@ -1,0 +1,12 @@
+list: $/skillset/configuration/models/ratecommissionconfiguration/columns.yaml
+modelClass: skillset\Configuration\Models\RateCommissionConfiguration
+title: RateCommissionConfiguration
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: false
+showCheckboxes: false
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'skillset/configuration/ratecommissionconfiguration/update/:id'

@@ -1,0 +1,6 @@
+
+export:
+  title: Export Users
+  modelClass: rainlab\User\Models\UserExport
+  list: $/rainlab/user/models/user/columnsforexport.yaml
+  fileName: Users.csv

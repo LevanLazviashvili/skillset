@@ -1,0 +1,17 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table skillset_log_sms'
+    - builder_table_create_skillset_log_sms.php
+1.0.3:
+    - 'Updated table skillset_log_sms'
+    - builder_table_update_skillset_log_sms.php
+1.0.4:
+    - 'Created table skillset_log_mail'
+    - builder_table_create_skillset_log_mail.php
+1.0.5:
+    - 'Updated table skillset_log_mail'
+    - builder_table_update_skillset_log_mail.php
+1.0.6:
+    - 'Updated table skillset_log_mail'
+    - builder_table_update_skillset_log_mail_2.php

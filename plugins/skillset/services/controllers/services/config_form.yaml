@@ -1,0 +1,10 @@
+name: Services
+form: $/skillset/services/models/service/fields.yaml
+modelClass: skillset\Services\Models\Service
+defaultRedirect: skillset/services/services
+create:
+    redirect: 'skillset/services/services/update/:id'
+    redirectClose: skillset/services/services
+update:
+    redirect: skillset/services/services
+    redirectClose: skillset/services/services

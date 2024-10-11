@@ -1,0 +1,18 @@
+plugin:
+    name: 'skillset.conversations::lang.plugin.name'
+    description: 'skillset.conversations::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-wechat
+    homepage: ''
+navigation:
+    main-menu-item-chat:
+        label: ჩატი
+        url: skillset/conversations/conversations
+        icon: icon-wechat
+        permissions:
+            - chat
+        order: '501'
+permissions:
+    chat:
+        tab: skillset
+        label: chat

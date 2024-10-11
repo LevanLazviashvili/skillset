@@ -1,0 +1,6 @@
+plugin:
+    name: 'skillset.log::lang.plugin.name'
+    description: 'skillset.log::lang.plugin.description'
+    author: skillset
+    icon: oc-icon-adjust
+    homepage: ''

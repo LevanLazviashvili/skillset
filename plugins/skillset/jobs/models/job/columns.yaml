@@ -1,0 +1,54 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    title:
+        label: სათაური
+        type: text
+        searchable: true
+        sortable: true
+    description:
+        label: აღწერა
+        type: text
+        searchable: true
+    price:
+        label: ფასი
+        type: text
+        default: შეთანხმებით
+        sortable: true
+    region_id:
+        label: რეგიონი
+        type: text
+        default: ყველა
+        searchable: true
+        select: title
+        relation: region
+    type:
+        label: ტიპი
+        type: special_job_types
+    status:
+        label: სტატუსი
+        type: special_job_statuses
+    user_id:
+        label: მომხმარებელი
+        type: text
+        searchable: true
+        select: 'concat(name, '' '', surname)'
+        relation: user
+    active:
+        label: აქტიური
+        type: switch
+        sortable: true
+        options:
+            1: 'კი'
+            0: 'არა'
+    created_at:
+        label: 'გამოქვეყნების თარიღი'
+        type: text
+        sortable: true
+    updated_at:
+        label: 'განახლების თარიღი'
+        type: text
+        sortable: true

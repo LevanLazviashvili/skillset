@@ -1,0 +1,33 @@
+<?= $this->listRender() ?>
+<div class="control-popup modal fade" id="contentBasic" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">აპლიკაციის საკომისიოს პროცენტი</h4>
+            </div>
+            <div class="modal-body">
+                <p><input class="form-control" id="app_percent" required placeholder="ჩაწერეთ პროცენტი (მხოლოდ რიცხვი მაგ. 5.3)" type="number"></p>
+            </div>
+            <div class="modal-footer">
+                <button
+                        class="btn btn-primary"
+                        disabled="disabled"
+                        onclick="$(this).data('request-data', {
+                                    users: $('.control-list').listWidget('getChecked'),
+                                    percent: $('#app_percent').val()
+                                })"
+                        data-request="onSetPercent"
+                        data-trigger-action="enable"
+                        data-trigger=".control-list input[type=checkbox]"
+                        data-trigger-condition="checked"
+                        data-request-success="$(this).prop('disabled', true)"
+                        data-dismiss="modal"
+                        data-stripe-load-indicator>
+                    საკომისიოს გაწერა
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">დახურვა</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+fields:
+    title:
+        label: სათაური
+        span: auto
+        disabled: 1
+        readOnly: 1
+        type: text
+    value:
+        label: მნიშვნელობა
+        span: auto
+        type: text

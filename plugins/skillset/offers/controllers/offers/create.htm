@@ -1,0 +1,159 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('skillset/offers/offers') ?>">Offers</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+<?= Form::open(['class' => 'layout']) ?>
+<div id="form">
+
+
+        <div class="layout-row">
+            <?= $this->formRender() ?>
+        </div>
+
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <button
+                    type="button"
+                    class="btn btn-primary" onclick="search()">
+                    ძებნა
+                </button>
+                <button
+                        type="submit"
+                        data-request="onOfferByAdmin"
+                        data-hotkey="ctrl+s, cmd+s"
+                        data-load-indicator="გთხოვთ დაელოდოთ"
+                        data-action="redirect:1"
+                        class="btn btn-primary" onclick="search()">
+                    შეთავაზების გაგზავნა
+                </button>
+                <span class="btn-text">
+                    ან <a href="<?= Backend::url('skillset/offers/offers') ?>">გამოსვლა</a>
+                </span>
+            </div>
+        </div>
+
+
+</div>
+
+<div id="workers">
+    <div class="list-widget list-scrollable-container" id="Lists">
+        <div class="control-list list-scrollable" data-control="listwidget">
+            <table class="table data" data-control="rowlink">
+                <thead>
+                <tr>
+                    <th class="list-checkbox">
+                        <div class="checkbox custom-checkbox nolabel">
+                            <input type="checkbox" id="Lists-checkboxAll">
+                            <label for="Lists-checkboxAll"></label>
+                        </div>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>ID</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>სახელი, გვარი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>ტელეფონი/მეილი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>რეიტინგი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>ფასი</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>დაკავებული</a>
+                    </th>
+                    <th class="list-cell-name-id list-cell-type-text  ">
+                        <a>არააქტიური</a>
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="t-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+<?= Form::close() ?>
+
+
+<script type="application/javascript">
+    function search(){
+        $.ajax({
+            url: '<?= config("app.url") ?>ka/workers',
+            type: "get", //send it through get method
+            data: {
+                service_ids: $('#Form-field-Offer-Services').select2("val"),
+                service_sub_ids: $('#Form-field-Offer-SubServices').select2("val"),
+                region_ids: $('#Form-field-Offer-region').select2("val"),
+                price_from: $('#Form-field-Offer-price_from').val(),
+                price_to: $('#Form-field-Offer-price_to').val(),
+                secret: "<?=config('app.admin_secret')?>"
+            },
+            success: function(response) {
+                RenderWorkers(response.data.workers);
+            },
+            error: function(xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+
+    $('#Lists-checkboxAll').change(function() {
+        let checked = $(this).is( ":checked" );
+        $('.list_checkboxes').prop('checked', checked);
+    });
+
+    function RenderWorkers(workers) {
+        let workersHtml = '';
+        workers.forEach(function(item) {
+            //TODO change username to phone
+            workersHtml += getWorkerTemplate(item.id, item.name, item.surname, item.username, item.rate, item.price_from, item.price_to, parseInt(item.is_busy), parseInt(item.is_unactive));
+        });
+        $('#t-body').html(workersHtml);
+    }
+
+    function getWorkerTemplate(id, name, surname, phone, rate, price_from, price_to, is_busy, is_unactive)
+    {
+        return `<tr class="rowlink" tabindex="0">
+            <td class="list-checkbox nolink">
+                <div class="checkbox custom-checkbox nolabel">
+                    <input type="checkbox" class="list_checkboxes" name="workers[]" id="Lists-checkbox-${id}" value="${id}" autocomplete="off">
+                    <label for="Lists-checkbox-${id}">Check</label>
+                </div>
+            </td>
+            <td class="list-cell-type-text">
+                ${id}
+            </td>
+            <td class="list-cell-type-text">
+                ${name} ${surname}
+            </td>
+            <td class="list-cell-type-text">
+                ${phone}
+            </td>
+            <td class="list-cell-type-text">
+                ${rate ?? 0}
+            </td>
+            <td class="list-cell-type-text">
+                ${price_from} - ${price_to}
+            </td>
+            <td class="list-cell-type-text">
+                ${is_busy ? 'კი' : 'არა'}
+            </td>
+            <td class="list-cell-type-text">
+                ${is_unactive ? 'კი' : 'არა'}
+            </td>
+
+        </tr>`;
+    }
+
+
+
+</script>
