@@ -43,7 +43,7 @@ Route::get('getofferworkers', 'skillset\Offers\Controllers\Offers@adminGetOfferW
 //Route::post('{lang}/test', 'skillset\Notifications\Controllers\Notifications@test');
 
 Route::get('test', function() {
-    echo '1234567';
+    echo 'new';
 //    (new \skillset\Notifications\Models\Notification)->sendTemplateNotificationsByUserIDs([43,20], 'newOffer');
 });
 
