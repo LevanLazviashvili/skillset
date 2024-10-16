@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Enable debug mode
+      run: set -x
     - name: install ssh keys
       # check this thread to understand why its needed:
       # https://stackoverflow.com/a/70447517
