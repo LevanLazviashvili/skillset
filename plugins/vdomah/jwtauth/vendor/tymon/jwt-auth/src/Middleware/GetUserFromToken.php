@@ -47,11 +47,20 @@ class GetUserFromToken extends BaseMiddleware
             return $this->errorResponse('user_deleted',self::$ERROR_CODES['USER_DELETED'] );
         }
 
+        $response = $next($request);
+
         $this->events->fire('tymon.jwt.valid', $user);
         config()->set('auth.UserID', $user->id);
         config()->set('auth.UserType', $user->user_type);
         config()->set('auth.Token', $token);
 
-        return $next($request);
+        traceLog([
+            'URI' => $request->getRequestUri(),
+            'METHOD' => $request->getMethod(),
+            'REQUEST_BODY' => $request->all(),
+            'RESPONSE' => $response->getContent()
+        ]);
+
+        return $response;
     }
 }
