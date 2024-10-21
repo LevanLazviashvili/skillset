@@ -63,6 +63,10 @@ class AppJobs extends Command
         (new MarketplaceApp)->updateExpiredVipApps();
         (new Users)->makeJobUsersWithNegativeBalanceInactive();
 
+        traceLog('running app:jobs');
+
+
+
 //        (new Notifications)->notifyUsersAboutNewChat();
 //        (new Notifications)->notifyUsersAboutUnreadMessages();
 //        (new Message)->sendSystemMessage(31, 'offer_accepted_by_worker', ['offer_status_id' => 1]);
