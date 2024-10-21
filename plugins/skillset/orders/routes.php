@@ -1,6 +1,7 @@
 <?php
 //use skillset\Categories\Controllers\Categories; 111a2aხ
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use skillset\Conversations\Models\Message;
 
 Route::prefix('{lang}/user')->group(function(){
@@ -48,11 +49,14 @@ Route::get('test', function() {
 });
 
 Route::get('errorlog', function () {
+    Artisan::command('whoami', function () {
+        echo shell_exec('whoami');
+    });
 //    if ($_SERVER['REMOTE_ADDR'] == '188.123.138.96') {
-        $file = storage_path('logs/system.log');
-        if (file_exists($file)) {
-            print_R(file_get_contents($file));
-        }
+//        $file = storage_path('logs/system.log');
+//        if (file_exists($file)) {
+//            print_R(file_get_contents($file));
+//        }
 //    }
 });
 
