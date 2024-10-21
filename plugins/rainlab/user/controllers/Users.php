@@ -768,6 +768,13 @@ class Users extends Controller
     public function getUnreadCounts()
     {
         $user = User::find(config('auth.UserID'));
+        if (!$user) {
+            return $this->response([
+                'jobs' => 0,
+                'products' => 0,
+                'posts' => 0
+            ]);
+        }
 
         $newJobCount = Job::publicVisible()
             ->where('created_at', '>=', $user->created_at)

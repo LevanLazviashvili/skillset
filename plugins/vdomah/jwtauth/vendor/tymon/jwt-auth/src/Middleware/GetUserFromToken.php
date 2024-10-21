@@ -46,6 +46,9 @@ class GetUserFromToken extends BaseMiddleware
         if ($user->status_id < 0) {
             return $this->errorResponse('user_deleted',self::$ERROR_CODES['USER_DELETED'] );
         }
+        if (!$user->id) {
+            return $this->errorResponse( 'invalid_auth_token', self::$ERROR_CODES['AUTH_ERROR']);
+        }
 
         $response = $next($request);
 
