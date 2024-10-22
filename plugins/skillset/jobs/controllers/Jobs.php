@@ -184,6 +184,7 @@ class Jobs extends Controller
 
     public function store(Request $request)
     {
+
         $rules =  [
             'author_role' => 'required|in:1,2',
             'title' => 'required|string',
@@ -207,6 +208,8 @@ class Jobs extends Controller
                 $validator->getMessageBag()
             );
         }
+
+
 
         $validatedData = $request->validate($rules);
 

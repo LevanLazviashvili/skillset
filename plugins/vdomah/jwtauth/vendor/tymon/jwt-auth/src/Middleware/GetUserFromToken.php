@@ -50,12 +50,15 @@ class GetUserFromToken extends BaseMiddleware
             return $this->errorResponse( 'invalid_auth_token', self::$ERROR_CODES['AUTH_ERROR']);
         }
 
-        $response = $next($request);
-
         $this->events->fire('tymon.jwt.valid', $user);
+
         config()->set('auth.UserID', $user->id);
+
         config()->set('auth.UserType', $user->user_type);
         config()->set('auth.Token', $token);
+
+
+        $response = $next($request);
 
         traceLog([
             'URI' => $request->getRequestUri(),
