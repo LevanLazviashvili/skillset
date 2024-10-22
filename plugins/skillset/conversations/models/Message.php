@@ -49,7 +49,7 @@ class Message extends Model
         'offer_accepted_by_client_pre_pay'  => ['დამკვეთი დაეთანხმა სამუშაოს დაწყებას'],
         'offer_rejected_by_client'  => ['დამკვეთმა უარი განაცხადა სამუშაოების დაწყებაზე'],
         'marketplace_offer_accepted_pre_pay'  => ['მყიდველი დაეთანხმა ინვოისს'],
-        'marketplace_offer_accepted'  => ['ინვოისი დადასტურებულია.'],
+        'marketplace_offer_accepted'  => ['თანხა გადახდილია.'],
         'marketplace_offer_rejected'  => ['ინვოისი უარყოფილია.'],
         'payed_with_cash'           => ['სამუშაო დასრულებულია, თანხა გადახდილია ნაღდი ანგარიშსწორებით'],
         'payed_with_balance'        => ['სამუშაო დასრულებულია, თანხა გადახდილია საბანკო ბარათით'],
