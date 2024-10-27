@@ -202,6 +202,9 @@ class Order extends Model
             'service_id'            => Arr::get($params, 'service_id'),
             'created_at'            => Carbon::now(),
             'start_date'            => Carbon::now(),
+            'bank_percent'          => 0,
+            'bank_percent_amount'   => 0,
+            'total_price'           => 0,
             'custom_client_phone'   => $ByAdmin ? Arr::get($params, 'custom_client_phone') : '',
             'custom_client_address' => $ByAdmin ? Arr::get($params, 'custom_client_address') : '',
             'comment'               => Arr::get($params, 'comment')
