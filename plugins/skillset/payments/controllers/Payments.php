@@ -114,7 +114,7 @@ class Payments extends Controller
 
                         (new Message)->sendSystemMessage(
                             $order->offer->conversation_id,
-                            'marketplace_offer_accepted',
+                            'marketplace_offer_payed',
                             ['offer_status_id' => $order->offer->status]
                         );
 
