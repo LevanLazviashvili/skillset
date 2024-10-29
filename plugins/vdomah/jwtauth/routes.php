@@ -34,6 +34,8 @@ Route::prefix('{lang}/')->group(function() {
 
         Route::get('unread-counts', 'RainLab\User\Controllers\Users@getUnreadCounts')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
         Route::put('bank-account-number', 'RainLab\User\Controllers\Users@updateBankAccountNumber')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
+        Route::get('notification-statuses', 'RainLab\User\Controllers\Users@getUserNotificationStatuses')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
+        Route::post('notification-statuses', 'RainLab\User\Controllers\Users@updateNotificationStatuses')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
     });
     Route::post('sendtestnotification', 'RainLab\User\Controllers\Users@sendTestPushNotification');
 

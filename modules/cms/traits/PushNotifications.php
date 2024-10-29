@@ -28,7 +28,8 @@ trait PushNotifications
         $ActionPage = 'profile',
         $ActionParams = ['balance_popup' => true],
         $ShowInApp = false,
-        $topic = null
+        $topic = null,
+        $templateID = 0
     ) {
 
         $data = [
@@ -63,7 +64,13 @@ trait PushNotifications
             ->whereNotNull('device_token')
             ->whereIn('id', is_array($UserIDs) ? $UserIDs : [$UserIDs]);
 
-        $DeviceTokens = $Users->pluck('device_token')->toArray();
+        if ($templateID) {
+            $Users->whereDoesntHave('NotificationBlocks', function($q) use ($templateID) {
+                $q->where('notification_template_id', $templateID);
+            });
+        }
+
+        $DeviceTokens = $Users->pluck('device_token');
 
         (new NotificationLog)->logNotification($UserIDs, $Title, $Body);
 

@@ -105,7 +105,8 @@ class User extends UserBase
         'last_seen_jobs',
         'last_seen_marketplace',
         'last_seen_forum',
-        'bank_account_number'
+        'bank_account_number',
+        'turn_off_notifications'
     ];
 
     public $publicInfo = [
@@ -151,7 +152,8 @@ class User extends UserBase
         'is_unactive',
         'status_id',
         'is_certified',
-        'bank_account_number'
+        'bank_account_number',
+        'turn_off_notifications'
     ];
 
     /**
@@ -202,6 +204,11 @@ class User extends UserBase
     public function ServiceToUser()
     {
         return $this->hasMany(ServiceToUser::class);
+    }
+
+    public function NotificationBlocks()
+    {
+        return $this->hasMany(UserNotificationBlock::class);
     }
 
 //    public function OrgLegalType()

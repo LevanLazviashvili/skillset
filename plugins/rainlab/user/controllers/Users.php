@@ -9,9 +9,11 @@ use Cms\Traits\PushNotifications;
 use Illuminate\Http\Request;
 use Hash;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Lang;
 use Flash;
+use RainLab\User\Models\UserNotificationBlock;
 use RainLab\User\Models\Worker;
 use rainlab\User\Rules\IDCard;
 use Response;
@@ -831,4 +833,24 @@ class Users extends Controller
 
         return $this->successResponse();
     }
+
+    public function getUserNotificationStatuses(Request $request, UserNotificationBlock $notificationBlockModel)
+    {
+        return $this->successResponse($notificationBlockModel->getStatuses());
+    }
+
+    public function updateNotificationStatuses(Request $request, UserNotificationBlock $notificationBlockModel)
+    {
+        $validator = Validator::make($request->all(), [
+            'notifications' => 'required|array|min:1'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->getMessageBag(), self::$ERROR_CODES['VALIDATION_ERROR']);
+        }
+        $notificationBlockModel->updateStatus($request->all());
+        return $this->successResponse();
+    }
+
+
 }
