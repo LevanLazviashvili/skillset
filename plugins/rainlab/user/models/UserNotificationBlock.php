@@ -1,6 +1,7 @@
 <?php namespace RainLab\User\Models;
 
 use Aws\Result;
+use cms\helpers\Langs;
 use Guzzle\Http\Message\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -43,16 +44,20 @@ class UserNotificationBlock extends Model
     {
         $Return = [];
         foreach ($this->availableToBlockTemplateIDs AS $key => $template) {
-            $Return[$key] = true;
+            $Return[$key] = [
+                'key'       => $key,
+                'title'     => Langs::get($key),
+                'status'    => true
+            ];
         }
         $blockedNotifications = self::where('user_id', config('auth.UserID'))->whereIn('notification_template_id', $this->availableToBlockTemplateIDs)->get();
         $flipedTemplateIDs = array_flip($this->availableToBlockTemplateIDs);
         foreach ($blockedNotifications AS $blockedNotification) {
             if ($key = Arr::get($flipedTemplateIDs, $blockedNotification->notification_template_id)) {
-                $Return[$key] = false;
+                $Return[$key]['status'] = false;
             }
         }
-        return $Return;
+        return array_values($Return);
     }
 
     public function updateStatus($params)
