@@ -32,7 +32,7 @@ Route::prefix('{lang}/')->group(function() {
 
         Route::post('fillbalance', 'RainLab\User\Controllers\Users@fillBalance')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
 
-        Route::get('unread-counts', 'RainLab\User\Controllers\Users@getUnreadCounts')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
+        Route::get('unread-counts', 'RainLab\User\Controllers\Users@getUnreadCounts')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromTokenOptional');
         Route::put('bank-account-number', 'RainLab\User\Controllers\Users@updateBankAccountNumber')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
         Route::get('notification-statuses', 'RainLab\User\Controllers\Users@getUserNotificationStatuses')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
         Route::post('notification-statuses', 'RainLab\User\Controllers\Users@updateNotificationStatuses')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
@@ -47,6 +47,7 @@ Route::prefix('{lang}/')->group(function() {
 
     Route::post('sendautonotifications', 'skillset\Notifications\Controllers\Notifications@sendAutoNotifications');
     Route::post('sendtestnotification', 'skillset\Notifications\Controllers\Notifications@sendTestNotification');
+
 
 });
 
