@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Cms\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Namshi\JOSE\Signer\OpenSSL\None;
 use RainLab\User\Models\User;
@@ -68,6 +69,8 @@ class Jobs extends Controller
 
         $params = $request->validate($rules);
 
+        DB::enableQueryLog();
+
         $query = Job::with(['user'])->publicVisible();
 
         $this->applyFilters($query, $params);
@@ -88,6 +91,10 @@ class Jobs extends Controller
 
         $user = User::find(config('auth.UserID'));
         $user->update(['last_seen_jobs' => now()]);
+
+        if (isset($_GET['test'])) {
+            print_r(DB::getQueryLog());
+        }
 
         return $this->response([
             'jobs' => $jobs,

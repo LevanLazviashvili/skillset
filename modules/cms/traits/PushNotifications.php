@@ -76,6 +76,7 @@ trait PushNotifications
 
         $Users->update(['last_notification_at' => Carbon::now()->toDateTimeString()]);
 
+
         $tokens = is_array($DeviceTokens) ? $DeviceTokens : [$DeviceTokens];
 
         if ($topic) {

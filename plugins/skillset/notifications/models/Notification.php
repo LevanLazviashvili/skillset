@@ -452,9 +452,5 @@ class Notification extends Model
     /**
      * @throws \Google\Exception
      */
-    public function test()
-    {
-        $this->SendPushNotification([5029], 'Test title', 'Test description', 'icon', 'button', 'page', [], false, 'test1');
-    }
 
 }
