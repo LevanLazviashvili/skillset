@@ -69,8 +69,6 @@ class Jobs extends Controller
 
         $params = $request->validate($rules);
 
-        DB::enableQueryLog();
-
         $query = Job::with(['user'])->publicVisible();
 
         $this->applyFilters($query, $params);
@@ -91,10 +89,6 @@ class Jobs extends Controller
 
         $user = User::find(config('auth.UserID'));
         $user->update(['last_seen_jobs' => now()]);
-
-        if (isset($_GET['test'])) {
-            print_r(DB::getQueryLog());
-        }
 
         return $this->response([
             'jobs' => $jobs,
@@ -166,6 +160,7 @@ class Jobs extends Controller
 
     public function show($lang, $id)
     {
+        DB::enableQueryLog();
         $job = Job::where(function ($query) {
             $query->active()->orWhere('user_id', config('auth.UserID'));
         })
@@ -181,6 +176,10 @@ class Jobs extends Controller
         $user = (new User)->filterInfo($job->user);
 
         $job = $job->toArray();
+
+        if (isset($_GET['test'])) {
+            print_r(DB::getQueryLog());
+        }
 
         $job['user'] = $user;
 
