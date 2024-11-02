@@ -72,8 +72,10 @@ class Notifications extends Controller
 
     public function sendTestNotification(Request $request)
     {
-        (new Notification)->sendTestNotification($request->all());
-        return $this->response('sent');
+//        (new Notification)->sendTestNotification($request->all());
+//        (new Notification)->sendAutoNotifications();
+//        (new Notification)->sendTemplateNotifications(209, 'marketplaceInvoiceAccepted');
+//        return $this->response('sent');
     }
 
     /**

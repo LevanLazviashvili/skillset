@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Queue;
 use Model;
 use Pheanstalk\Exception;
+use RainLab\Translate\Models\Locale;
 use RainLab\User\Models\User;
 use RainLab\User\Models\Worker;
 use skillset\Configuration\Traits\Config;
@@ -94,7 +95,7 @@ class Notification extends Model
 
     public function sendAutoNotifications()
     {
-        $NotificationsToSend = self::with('Template')->where('status_id', 1)->get();
+        $NotificationsToSend = self::with('Template', 'Template.translations')->where('status_id', 1)->get();
         foreach ($NotificationsToSend AS $Notification) {
             if (!Arr::get($Notification, 'frequency')) {
                 $this->sendInstantNotification($Notification);
@@ -111,9 +112,9 @@ class Notification extends Model
         if ($Now->hour >= $this->getConfig('silence_hours_from') OR $Now->hour <= $this->getConfig('silence_hours_to')) {
             return false;
         }
-        // TODO multilang per user
         $params = $Notification->toArray();
-        $this->sendNotifications(Arr::get($params, 'send_to'), Arr::get($params, 'template.title'), Arr::get($params, 'template.description'));
+        $template = $this->remapMultiLangTemplate(Arr::get($params, 'template'));
+        $this->sendNotifications(Arr::get($params, 'send_to'), Arr::get($template, 'title'), Arr::get($template, 'description'));
         $Notification->update(['status_id' => 0, 'last_send_date' => $Now->toDateTimeString()]);
     }
 
@@ -135,7 +136,8 @@ class Notification extends Model
         }
 
         $Notification->update(['last_send_date' => $Now->toDateTimeString()]);
-        return $this->sendNotifications(Arr::get($params, 'send_to'), Arr::get($params, 'template.title'), Arr::get($params, 'template.description'));
+        $template = $this->remapMultiLangTemplate(Arr::get($params, 'template'));
+        return $this->sendNotifications(Arr::get($params, 'send_to'), Arr::get($template, 'title'), Arr::get($template, 'description'));
     }
 
     public function sendNotifications($SendTo, $Title, $Description)
@@ -170,15 +172,23 @@ class Notification extends Model
 
     public function sendUnActiveOfferNotification($UserID, $ServiceID, $SearchParams, $OfferID)
     {
-        $Template = $this->getTemplate('unActiveOffer');
-        $Message = $this->generateMessage(Arr::get($Template, 'description'), ['service_id' => $ServiceID]);
+        $Template = $this->getTemplateMultiLang('unActiveOffer');
+        $Messages = [];
+        foreach ($Template['description'] AS $key =>  $description) {
+            $Messages[$key] = $this->generateMessage($description, ['service_id' => $ServiceID]);
+        }
+
         $SearchParams = array_merge((is_array($SearchParams) ? $SearchParams : []), ['sort' => 3, 'service_id' => $ServiceID]);
-        $this->SendPushNotification($UserID, Arr::get($Template, 'title'), $Message, Arr::get($Template, 'icon_type'),
+        $this->SendPushNotification($UserID, Arr::get($Template, 'title'), $Messages, Arr::get($Template, 'icon_type'),
             Arr::get($Template, 'button_title'), 'search', $SearchParams, true);
     }
 
     private function getTemplate($name) {
         return (new NotificationTemplate)->find(Arr::get($this->templates, $name))->toArray();
+    }
+    private function getTemplateMultiLang($name) {
+        $template = (new NotificationTemplate)->with('translations')->find(Arr::get($this->templates, $name))->toArray();
+        return $this->remapMultiLangTemplate($template);
     }
 
 //    private function getDeviceToken($UserID) {
@@ -234,7 +244,7 @@ class Notification extends Model
         if ($Now->hour >= $this->getConfig('silence_hours_from') OR $Now->hour <= $this->getConfig('silence_hours_to')) {
             return;
         }
-        $Template = $this->getTemplate($TemplateName);
+        $Template = $this->getTemplateMultiLang($TemplateName);
         $Message = Arr::get($Template, 'description');
         if ($params) {
             $Message = $this->generateMessage($Message, $params);
@@ -446,6 +456,28 @@ class Notification extends Model
     public function notifyUsersAboutNewMarketplaceAppAdded($id)
     {
         Queue::push('skillset\marketplace\classes\NotifyUsersNewMarketplaceAppAdded', ['id' => $id]);
+    }
+
+    private function remapMultiLangTemplate($template)
+    {
+        $defaultLang = Locale::getDefault()->code;
+        $Return = $template;
+
+        $Return['title'] = [$defaultLang => Arr::get($template, 'title')];
+        $Return['description'] = [$defaultLang => Arr::get($template, 'description')];
+        $Return['button_title'] = [$defaultLang => Arr::get($template, 'button_title')];
+        foreach (Locale::listEnabled() AS $key => $lang) {
+            $Return['title'][$key] = Arr::get($template, 'title');
+            $Return['description'][$key] = Arr::get($template, 'description');
+            $Return['button_title'][$key] = Arr::get($template, 'button_title');
+        }
+        foreach (Arr::get($template, 'translations') AS $translation) {
+            $data = json_decode(Arr::get($translation, 'attribute_data'), true);
+            $Return['title'][Arr::get($translation,'locale')] = trim(Arr::get($data, 'title')) ?: Arr::get($template, 'title');
+            $Return['description'][Arr::get($translation,'locale')] = trim(Arr::get($data, 'description')) ?: Arr::get($template, 'description');
+            $Return['button_title'][Arr::get($translation,'locale')] = trim(Arr::get($data, 'button_title')) ?: Arr::get($template, 'button_title');
+        }
+        return $Return;
     }
 
 

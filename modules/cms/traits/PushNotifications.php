@@ -7,7 +7,9 @@ use Google\Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
+use RainLab\Translate\Models\Locale;
 use RainLab\User\Models\User;
 use skillset\Notifications\Models\NotificationLog;
 use Google_Client;
@@ -31,35 +33,7 @@ trait PushNotifications
         $topic = null,
         $templateID = 0
     ) {
-
-        $data = [
-            "notification" => [
-                "title" => $Title,
-                "body" => $Body,
-            ],
-            "android" => [
-                "notification" => [
-                    "sound" => 'default',
-                ],
-                "priority" => "high",
-            ],
-            "apns" => [
-                "payload" => [
-                    "aps" => [
-                        "content-available" => 1,
-                        "priority" => "high",
-                    ],
-                ],
-            ],
-            "data" => [
-                'icon_state' => (string)$IconType,
-                'action_button_title' => $ActionButtonTitle,
-                'action_page' => $ActionPage,
-                'action_params' => json_encode($ActionParams),
-                'show_in_app' => (string)(int)$ShowInApp
-            ]
-        ];
-
+        $defaultLang = Locale::getDefault()->code;
         $Users = (new User)
             ->whereNotNull('device_token')
             ->whereIn('id', is_array($UserIDs) ? $UserIDs : [$UserIDs]);
@@ -69,28 +43,30 @@ trait PushNotifications
                 $q->where('notification_template_id', $templateID);
             });
         }
+        $UsersData = $Users->get()->toArray();
 
-        $DeviceTokens = $Users->pluck('device_token')->toArray();
+//        $DeviceTokens = array_column($UsersData, 'device_token');
 
-        (new NotificationLog)->logNotification($UserIDs, $Title, $Body);
+
+        (new NotificationLog)->logNotification($UserIDs, is_array($Title) ? Arr::get($Title, $defaultLang) : $Title, is_array($Body) ? Arr::get($Body, $defaultLang) : $Body);
 
         $Users->update(['last_notification_at' => Carbon::now()->toDateTimeString()]);
 
 
-        $tokens = is_array($DeviceTokens) ? $DeviceTokens : [$DeviceTokens];
+//        $tokens = is_array($DeviceTokens) ? $DeviceTokens : [$DeviceTokens];
 
         if ($topic) {
-            foreach (array_chunk($tokens, 1000) as $chunk) {
-                $this->subscribeToTopic($chunk, $topic);
-                $this->sendToTopic($topic, $data);
-                $this->unsubscribeToTopic($chunk, $topic);
+            foreach (array_chunk($UsersData, 1000) as $user) {
+                $this->subscribeToTopic(Arr::get($user, 'device_token'), $topic);
+                $this->sendToTopic($topic, $this->generateSendingData($Title, Arr::get($user, 'lang', $defaultLang), $Body, $IconType, $ActionButtonTitle, $ActionPage, $ActionParams, $ShowInApp));
+                $this->unsubscribeToTopic(Arr::get($user, 'device_token'), $topic);
             }
 
             return;
         }
 
-        foreach ($tokens as $token) {
-            $this->send($token, $data);
+        foreach ($UsersData as $user) {
+            $this->send(Arr::get($user, 'device_token'), $this->generateSendingData($Title, Arr::get($user, 'lang', $defaultLang), $Body, $IconType, $ActionButtonTitle, $ActionPage, $ActionParams, $ShowInApp));
         }
     }
 
@@ -285,5 +261,38 @@ trait PushNotifications
             // Handle other unexpected errors
             Log::error('Unexpected error during FCM unsubscription request', ['message' => $e->getMessage()]);
         }
+    }
+
+    private function generateSendingData($Title, $Lang, $Body, $IconType, $ActionButtonTitle, $ActionPage, $ActionParams, $ShowInApp)
+    {
+        $Lang = $Lang ?: Locale::getDefault();
+        return [
+            "notification" => [
+                "title" => is_array($Title) ? Arr::get($Title, $Lang) : $Title,
+                "body" => is_array($Body) ? Arr::get($Body, $Lang) : $Body,
+            ],
+            "android" => [
+                "notification" => [
+                    "sound" => 'default',
+                ],
+                "priority" => "high",
+            ],
+            "apns" => [
+                "payload" => [
+                    "aps" => [
+                        "content-available" => 1,
+                        "priority" => "high",
+                    ],
+                ],
+            ],
+            "data" => [
+                'icon_state' => (string)$IconType,
+                'action_button_title' => is_array($ActionButtonTitle) ? Arr::get($ActionButtonTitle, $Lang) : $ActionButtonTitle,
+                'action_page' => $ActionPage,
+                'action_params' => json_encode($ActionParams),
+                'show_in_app' => (string)(int)$ShowInApp
+            ]
+        ];
+
     }
 }
