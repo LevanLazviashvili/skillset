@@ -70,7 +70,7 @@ trait PushNotifications
             });
         }
 
-        $DeviceTokens = $Users->pluck('device_token');
+        $DeviceTokens = $Users->pluck('device_token')->toArray();
 
         (new NotificationLog)->logNotification($UserIDs, $Title, $Body);
 
