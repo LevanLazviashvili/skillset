@@ -46,8 +46,16 @@ Route::get('getofferworkers', 'skillset\Offers\Controllers\Offers@adminGetOfferW
 
 Route::get('test', function() {
 //    echo 'new';
-    (new Notification)->sendTemplateNotifications([209], 'unPaidOrder', [],['type' => 'order', 'id' => 123], 'order_details');
+//    (new Notification)->sendTemplateNotifications([209], 'unPaidOrder', [],['type' => 'order', 'id' => 123], 'order_details');
 //    (new \skillset\Notifications\Models\Notification)->sendTemplateNotificationsByUserIDs([43,20], 'newOffer');
+    (new Notification())->sendTemplateNotifications(
+        [209],
+        'newJob',
+        [],
+        ['type' => 'job', 'id' => 1],
+        'job_details',
+        'new_job_' . 1
+    );
 });
 
 Route::get('errorlog', function () {
