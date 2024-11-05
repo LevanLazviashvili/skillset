@@ -48,7 +48,7 @@ trait PushNotifications
 
 //        $DeviceTokens = array_column($UsersData, 'device_token');
 
-
+        traceLog($Body);
         (new NotificationLog)->logNotification($UserIDs, is_array($Title) ? Arr::get($Title, $defaultLang) : $Title, is_array($Body) ? Arr::get($Body, $defaultLang) : $Body);
         $Users->update(['last_notification_at' => Carbon::now()->toDateTimeString()]);
 
