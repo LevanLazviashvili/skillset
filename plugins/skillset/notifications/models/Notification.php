@@ -249,7 +249,6 @@ class Notification extends Model
         if ($params) {
             $Message = $this->generateMessage($Message, $params);
         }
-
         $this->SendPushNotification($UserIDs, Arr::get($Template, 'title'), $Message, Arr::get($Template, 'icon_type'), Arr::get($Template, 'button_title'), $actionPage, $actionParams, false, $topic, Arr::get($Template, 'id'));
     }
 

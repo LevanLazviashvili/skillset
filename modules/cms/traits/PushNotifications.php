@@ -38,6 +38,7 @@ trait PushNotifications
             ->whereNotNull('device_token')
             ->whereIn('id', is_array($UserIDs) ? $UserIDs : [$UserIDs]);
 
+
         if ($templateID) {
             $Users->whereDoesntHave('NotificationBlocks', function($q) use ($templateID) {
                 $q->where('notification_template_id', $templateID);
@@ -49,17 +50,23 @@ trait PushNotifications
 
 
         (new NotificationLog)->logNotification($UserIDs, is_array($Title) ? Arr::get($Title, $defaultLang) : $Title, is_array($Body) ? Arr::get($Body, $defaultLang) : $Body);
-
         $Users->update(['last_notification_at' => Carbon::now()->toDateTimeString()]);
 
 
 //        $tokens = is_array($DeviceTokens) ? $DeviceTokens : [$DeviceTokens];
 
         if ($topic) {
-            foreach (array_chunk($UsersData, 1000) as $user) {
-                $this->subscribeToTopic(Arr::get($user, 'device_token'), $topic);
-                $this->sendToTopic($topic, $this->generateSendingData($Title, Arr::get($user, 'lang', $defaultLang), $Body, $IconType, $ActionButtonTitle, $ActionPage, $ActionParams, $ShowInApp));
-                $this->unsubscribeToTopic(Arr::get($user, 'device_token'), $topic);
+            $UserLangGroups = [];
+            foreach ($UsersData as $user) {
+                $UserLangGroups[$user['lang']][] = $user['device_token'];
+            }
+
+            foreach ($UserLangGroups as $Lang => $Tokens) {
+                foreach (array_chunk($Tokens, 1000) as $Tokens) {
+                    $this->subscribeToTopic($Tokens, $topic);
+                    $this->sendToTopic($topic, $this->generateSendingData($Title, $Lang, $Body, $IconType, $ActionButtonTitle, $ActionPage, $ActionParams, $ShowInApp));
+                    $this->unsubscribeToTopic($Tokens, $topic);
+                }
             }
 
             return;
