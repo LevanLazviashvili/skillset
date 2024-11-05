@@ -101,7 +101,7 @@ trait PushNotifications
     {
         $client = new Client();
 
-        traceLog('Sent notifications');
+        traceLog('Sent to topic notifications');
 
         traceLog($data);
 
