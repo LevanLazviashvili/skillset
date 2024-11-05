@@ -1,7 +1,9 @@
 <?php
 //use skillset\Categories\Controllers\Categories; 111a2aხ
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use skillset\Conversations\Models\Message;
+use skillset\Notifications\Models\Notification;
 
 Route::prefix('{lang}/user')->group(function(){
     Route::get('getoffers', 'skillset\Offers\Controllers\Offers@getAll')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
@@ -43,7 +45,8 @@ Route::get('getofferworkers', 'skillset\Offers\Controllers\Offers@adminGetOfferW
 //Route::post('{lang}/test', 'skillset\Notifications\Controllers\Notifications@test');
 
 Route::get('test', function() {
-    echo 'new';
+//    echo 'new';
+    (new Notification)->sendTemplateNotifications([209], 'unPaidOrder', [],['type' => 'order', 'id' => 123], 'order_details');
 //    (new \skillset\Notifications\Models\Notification)->sendTemplateNotificationsByUserIDs([43,20], 'newOffer');
 });
 

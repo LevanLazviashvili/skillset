@@ -247,10 +247,8 @@ class Notification extends Model
         $Template = $this->getTemplateMultiLang($TemplateName);
 //        $Message = Arr::get($Template, 'description');
         $Message = [];
-        if ($params) {
-            foreach ($Template['description'] AS $key =>  $description) {
-                $Message[$key] = $this->generateMessage($description, $params);
-            }
+        foreach ($Template['description'] AS $key =>  $description) {
+            $Message[$key] = $this->generateMessage($description, $params);
         }
         $this->SendPushNotification($UserIDs, Arr::get($Template, 'title'), $Message, Arr::get($Template, 'icon_type'), Arr::get($Template, 'button_title'), $actionPage, $actionParams, false, $topic, Arr::get($Template, 'id'));
     }
