@@ -101,7 +101,7 @@ trait PushNotifications
     {
         $client = new Client();
 
-        traceLog('Sent to topic notifications');
+        traceLog('Sent notifications');
 
         traceLog($data);
 
@@ -148,6 +148,10 @@ trait PushNotifications
      */
     public function sendToTopic($topic, array $data): void
     {
+        traceLog('Sent to topic notifications');
+        traceLog($data);
+        traceLog($topic);
+
         $client = new Client();
 
         try {
