@@ -1,5 +1,6 @@
 <?php namespace skillset\Conversations\Models;
 
+use Illuminate\Support\Facades\Lang;
 use skillset\Conversations\Models\MessageImages;
 use Illuminate\Support\Arr;
 use Model;
@@ -78,7 +79,7 @@ class Message extends Model
         return explode(' | ', $translate)[$index];
     }
 
-    public function sendSystemMessage($ConversationID, $MessageKey, $AdditionalData = [], $params = [])
+    public function sendSystemMessage($ConversationID, $MessageKey, $AdditionalData = [], $params = [], $MandatoryLang = null)
     {
         if (!$ConversationID) {
             return;
@@ -88,8 +89,10 @@ class Message extends Model
             'password' => config('app.system_messages.password')
         ]);
 
+        if ($MandatoryLang) {
+            Lang::setLocale($MandatoryLang);
+        }
         $translate = TranslateMessage::where('code', 'system_messages.' . $MessageKey)->first()->getContentAttribute();
-
         $messages = explode(' | ', $translate);
 
         foreach ($messages AS $Message) {
