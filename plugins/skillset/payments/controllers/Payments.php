@@ -57,10 +57,11 @@ class Payments extends Controller
                     case $paymentModel->paymentTypes['order'] :
                         $Order = (new Order)->where('payment_hash', $request->input('payment_hash'));
                         $OrderData = $Order->first();
+                        $PaidUserLang = (new User)->find($OrderData->client_id)->lang;
                         $Order->update(['status_id' =>(new Order)->statuses['user_payed']]);
-                        (new Message)->sendSystemMessage($OrderData->conversation_id, 'payed_with_balance', ['order_status_id' => (new Order)->statuses['user_payed']]);
+                        (new Message)->sendSystemMessage($OrderData->conversation_id, 'payed_with_balance', ['order_status_id' => (new Order)->statuses['user_payed']], [], $PaidUserLang);
                         $User = (new User)->find($OrderData->client_id);
-                        (new Notification)->sendTemplateNotifications([$Order->worker_id], 'userPaidOrder', [$User->name.' '.$User->surname], ['type' => 'order', 'id' => $OrderData->id], 'order_details');
+                        (new Notification)->sendTemplateNotifications([$OrderData->worker_id], 'userPaidOrder', [$User->name.' '.$User->surname], ['type' => 'order', 'id' => $OrderData->id], 'order_details');
 
                         break;
                     case $paymentModel->paymentTypes['job_order'] :
@@ -80,14 +81,17 @@ class Payments extends Controller
 
                         $order->update(['status' => $orderModel->statuses['work_started']]);
 
+                        $worker = $orderModel->getUserByRole($order, 'worker');
+                        $client = $orderModel->getUserByRole($order, 'client');
                         (new Message)->sendSystemMessage(
                             $order->offer->conversation_id,
                             'job_payed_with_balance',
-                            ['order_status_id' => $orderModel->statuses['work_started']]
+                            ['order_status_id' => $orderModel->statuses['work_started']],
+                            [],
+                            $client->lang
                         );
 
-                        $worker = $orderModel->getUserByRole($order, 'worker');
-                        $client = $orderModel->getUserByRole($order, 'client');
+
 
                         (new Notification)->sendTemplateNotifications(
                             [$worker->id],
@@ -104,6 +108,7 @@ class Payments extends Controller
                             ->where('payment_hash', $request->input('payment_hash'))
                             ->first();
 
+
                         $order->update(['status' => $orderModel->statuses['client_paid']]);
 
                         $order->offer->update([
@@ -111,11 +116,24 @@ class Payments extends Controller
                         ]);
 
                         $order->offer->application(['status' => (new Application())->statuses['processing']]);
+                        $workerID = $order->offer->application->user_id ?? 0;
+                        $client = User::find($order->offer->user_id);
+                        $PaidUserLang = (new User)->find($order->offer->user_id)->lang;
 
                         (new Message)->sendSystemMessage(
                             $order->offer->conversation_id,
                             'marketplace_offer_payed',
-                            ['offer_status_id' => $order->offer->status]
+                            ['offer_status_id' => $order->offer->status],
+                            [],
+                            $PaidUserLang
+                        );
+
+                        (new Notification)->sendTemplateNotifications(
+                            [$workerID],
+                            'userPaidOrder',
+                            [$client->name.' '.$client->surname],
+                            ['type' => 'job_order', 'id' => $order->id],
+                            'job_order_details'
                         );
 
                         break;

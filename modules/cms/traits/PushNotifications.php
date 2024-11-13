@@ -72,7 +72,6 @@ trait PushNotifications
         }
 
         foreach ($UsersData as $user) {
-            $this->generateSendingData($Title, Arr::get($user, 'lang', $defaultLang), $Body, $IconType, $ActionButtonTitle, $ActionPage, $ActionParams, $ShowInApp);
             $this->send(Arr::get($user, 'device_token'), $this->generateSendingData($Title, Arr::get($user, 'lang', $defaultLang), $Body, $IconType, $ActionButtonTitle, $ActionPage, $ActionParams, $ShowInApp));
         }
     }
