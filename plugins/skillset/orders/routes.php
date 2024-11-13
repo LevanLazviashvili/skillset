@@ -59,7 +59,7 @@ Route::get('test', function() {
 });
 
 Route::get('errorlog', function () {
-    if ($_SERVER['REMOTE_ADDR'] == '188.123.138.96') {
+    if (in_array($_SERVER['REMOTE_ADDR'], ['188.123.138.96', '212.58.121.29'])) {
         $file = storage_path('logs/system.log');
         if (file_exists($file)) {
             print_R(file_get_contents($file));
@@ -68,7 +68,7 @@ Route::get('errorlog', function () {
 });
 
 Route::get('clearerrorlog', function () {
-    if ($_SERVER['REMOTE_ADDR'] == '188.123.138.96') {
+    if (in_array($_SERVER['REMOTE_ADDR'], ['188.123.138.96', '212.58.121.29'])) {
         $file = storage_path('logs/system.log');
         if (file_exists($file)) {
             $file=fopen($file,"w");
