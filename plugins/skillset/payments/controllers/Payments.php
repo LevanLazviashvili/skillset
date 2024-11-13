@@ -130,7 +130,7 @@ class Payments extends Controller
 
                         (new Notification)->sendTemplateNotifications(
                             [$workerID],
-                            'userPaidOrder',
+                            'userPaidMarketplace',
                             [$client->name.' '.$client->surname],
                             ['type' => 'job_order', 'id' => $order->id],
                             'job_order_details'

@@ -91,6 +91,7 @@ class Notification extends Model
         'marketplaceInvoiceSent'            => 105, //acceptance - delivery
         'marketplaceInvoiceAccepted'        => 106, //acceptance - delivery,
         'forumNewComment'                   => 107,
+        'userPaidMarketplace'               => 108
     ];
 
     public function sendAutoNotifications()
