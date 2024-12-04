@@ -568,6 +568,12 @@ class User extends UserBase
         ];
     }
 
+    public function getUserLang($id)
+    {
+        $User = $this->where('id', $id)->first();
+        return $User->lang;
+    }
+
     public function getInfo($request, $id = null)
     {
         $User = $id ? $this->where('id', $id)->first() : JWTAuth::authenticate($request->bearerToken());

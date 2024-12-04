@@ -286,7 +286,9 @@ class Order extends Model
                 'unit_price'  => Arr::get($service, 'unit_price'),
             ]);
         }
-        (new Message)->sendSystemMessage($Order->conversation_id, 'contract_is_ready', ['order_status_id' => $this->statuses['work_finished_by_worker']]);
+
+        $ClientLang = (new User)->getUserLang($OrderData->client_id);
+        (new Message)->sendSystemMessage($Order->conversation_id, 'contract_is_ready', ['order_status_id' => $this->statuses['work_finished_by_worker']],[], $ClientLang);
         (new Notification)->sendTemplateNotifications($Order->client_id, 'unPaidOrder', [],['type' => 'order', 'id' => Arr::get($params, 'order_id')], 'order_details');
         (new User)->checkUserBusyStatus($Order->worker_id);
         if ($Order->custom_client_phone) {
@@ -322,7 +324,7 @@ class Order extends Model
         $AppPercent = (new Worker)->getWorkerCommission($Order->worker_id);
         (new Notification)->sendTemplateNotifications([$Order->worker_id], 'userAcceptedOrder', [$User->name.' '.$User->surname], ['type' => 'order', 'id' => Arr::get($params, 'order_id')] ,'order_details');
         (new Worker)->updateBalance($Order->worker_id, $this->getPriceToCharge($Order->total_price, $AppPercent), false);
-        (new Message)->sendSystemMessage($Order->conversation_id, 'payed_with_cash', ['order_status_id' => $toStatus]);
+        (new Message)->sendSystemMessage($Order->conversation_id, 'payed_with_cash', ['order_status_id' => $toStatus], [], $User->lang);
         (new User)->checkUserBusyStatus($Order->worker_id);
         return $Order->toArray();
     }
