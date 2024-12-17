@@ -101,7 +101,6 @@ class Message extends Model
             } else {
                 $Message = str_replace('%s', '', $Message);
             }
-            traceLog($Message);
             $this->sendMessageByCurl($Message, $ConversationID, $token, $AdditionalData);
         }
     }
@@ -119,6 +118,8 @@ class Message extends Model
             'Content-Type: application/json',
         ];
 
+        traceLog('Message to send: '.$Message);
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, config('app.system_messages.url'));
         curl_setopt($ch, CURLOPT_POST, true);
@@ -127,6 +128,7 @@ class Message extends Model
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
         $response = curl_exec($ch);
+        traceLog('chat response: '.$response);
         curl_close($ch);
         return $response;
     }
