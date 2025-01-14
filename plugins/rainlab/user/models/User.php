@@ -51,8 +51,8 @@ class User extends UserBase
      * Validation rules
      */
     public $rules = [
-        'avatar'   => 'nullable|image|max:20000',
-        'gallery.*' => 'image|max:10000',
+//        'avatar'   => 'nullable|image|max:20000',
+//        'gallery.*' => 'image|max:10000',
         'password' => 'required:create|between:8,255|confirmed',
         'password_confirmation' => 'required_with:password|between:8,255',
     ];
