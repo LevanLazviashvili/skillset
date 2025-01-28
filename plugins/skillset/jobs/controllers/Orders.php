@@ -170,6 +170,7 @@ class Orders extends Controller
         ]);
 
         $worker = $order->getUserByRole($order, 'worker');
+        $client = $order->getUserByRole($order, 'client');
 
         $appPercent = (new Worker)->getWorkerCommission($worker->id);
 
@@ -196,7 +197,9 @@ class Orders extends Controller
         (new Message)->sendSystemMessage(
             $order->offer->conversation_id,
             $messageKey,
-            ['order_status_id' => $orderModel->statuses['paid']]
+            ['order_status_id' => $orderModel->statuses['paid']],
+            [],
+            $client->lang
         );
 
         return $this->successResponse([]);
@@ -209,6 +212,7 @@ class Orders extends Controller
             $order->load(['offer.job']);
 
             $worker = $order->getUserByRole($order, 'worker');
+            $client = $order->getUserByRole($order, 'client');
 
             $appPercent = (new Worker)->getWorkerCommission($worker->id);
 
@@ -227,7 +231,9 @@ class Orders extends Controller
             (new Message)->sendSystemMessage(
                 $order->offer->conversation_id,
                 $messageKey,
-                ['order_status_id' => $order->status]
+                ['order_status_id' => $order->status],
+                [],
+                $client->lang
             );
         }
     }
