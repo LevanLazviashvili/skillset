@@ -271,7 +271,7 @@ class Orders extends Controller
 
         if ($MandatoryLang) {
             Lang::setLocale($MandatoryLang);
-            Translator::instance()->setLocale('en');
+            Translator::instance()->setLocale($MandatoryLang);
         }
 
         $translations = [];

@@ -192,7 +192,7 @@ class Offers extends Controller
 
         if ($MandatoryLang) {
             Lang::setLocale($MandatoryLang);
-            Translator::instance()->setLocale('en');
+            Translator::instance()->setLocale($MandatoryLang);
         }
         TranslateMessage::whereIn('code', $messageKeys)->get()->map(function ($item) use (&$translations) {
             $translations[$item->code] = $item->getContentAttribute();
