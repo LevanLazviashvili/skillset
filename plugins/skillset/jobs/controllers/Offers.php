@@ -7,7 +7,12 @@ use Cms\Traits\ApiResponser;
 use Cms\Traits\SmsOffice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
+use RainLab\Translate\Classes\Translator;
+use RainLab\Translate\Models\Locale;
 use RainLab\Translate\Models\Message as TranslateMessage;
 use RainLab\User\Models\User;
 use RainLab\User\Models\Worker;
@@ -58,9 +63,10 @@ class Offers extends Controller
             );
         }
 
-        $validatedData = $request->validate($rules);;
+        $validatedData = $request->validate($rules);
 
         $offer = Offer::find($validatedData['offer_id']);
+
 
         $offer->load('job.user');
 
@@ -81,14 +87,14 @@ class Offers extends Controller
 
         $this->saveServices($offer, $validatedData['services']);
 
+        $client = $this->getUserByRole($offer, 'client');
         if ($oldStatus == $offer->statuses['offer_created']) {
-            (new Message)->sendSystemMessage($offer->conversation_id, 'job_offered_services_pretext');
+            (new Message)->sendSystemMessage($offer->conversation_id, 'job_offered_services_pretext', [], [], $client->lang);
         }
 
-        $systemMessage = $this->generateOrderServicesMsg($offer->id, $offer->estimated_completed_date);
+        $systemMessage = $this->generateOrderServicesMsg($offer->id, $offer->estimated_completed_date, $client->lang);
 
-        (new Message)->sendSystemMessage($offer->conversation_id, 'offered_services', [], [$systemMessage]);
-
+        (new Message)->sendSystemMessage($offer->conversation_id, 'offered_services', [], [$systemMessage],  $client->lang);
         $sysMessageParams[] = Carbon::parse($validatedData['estimated_completed_date'])->format('d-m-Y');
 
         (new Message)->sendSystemMessage(
@@ -169,7 +175,7 @@ class Offers extends Controller
         ];
     }
 
-    public function generateOrderServicesMsg($offerId, $endDate)
+    public function generateOrderServicesMsg($offerId, $endDate, $MandatoryLang = null)
     {
 
         $messageBaseKey = 'system_messages.invoice_';
@@ -182,6 +188,10 @@ class Offers extends Controller
 
         $translations = [];
 
+        if ($MandatoryLang) {
+            Lang::setLocale($MandatoryLang);
+            Translator::instance()->setLocale('en');
+        }
         TranslateMessage::whereIn('code', $messageKeys)->get()->map(function ($item) use (&$translations) {
             $translations[$item->code] = $item->getContentAttribute();
         });
@@ -190,6 +200,7 @@ class Offers extends Controller
             ->where('pre', 1)
             ->with('unit')
             ->get();
+
 
         if (empty($offeredServices)) {
             return '';
@@ -204,8 +215,8 @@ class Offers extends Controller
             $totalAmount += $amount;
 
             $message .= ($index+1).') '. $service->title .': '. $service->amount .' '. $service->unit->title
-                .' - '. number_format($amount, 2)
-                . $translations[$messageBaseKey . 'currency_unit'] . ' (' . $service->unit_price
+                .' - '. number_format($amount, 2). ' '
+                . $translations[$messageBaseKey . 'currency_unit'] . ' (' . $service->unit_price . ' '
                 . $translations[$messageBaseKey . 'currency_unit'] . ' ' . $service->unit->title . ') \n ';
         }
 
@@ -214,6 +225,7 @@ class Offers extends Controller
             .' \n  '
             . $translations[$messageBaseKey . 'estimated_completed_date']
             . ' '. $endDate.' ';
+
 
         return $message;
     }
