@@ -8,9 +8,11 @@ use Cms\Traits\SmsOffice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Pheanstalk\Exception;
+use RainLab\Translate\Classes\Translator;
 use RainLab\Translate\Models\Message as TranslateMessage;
 use RainLab\User\Models\User;
 use RainLab\User\Models\Worker;
@@ -107,14 +109,18 @@ class Orders extends Controller
             'completed_at'          => Carbon::now()->toDateTimeString()
         ]);
 
+        $client = $order->getUserByRole($order, 'client');
+
         (new Message)->sendSystemMessage(
             $order->offer->conversation_id,
             'contract_is_ready',
-            ['order_status_id' => $orderModel->statuses['work_finished_by_worker']]
+            ['order_status_id' => $orderModel->statuses['work_finished_by_worker']],
+            [],
+            $client->lang
         );
 
         (new Notification)->sendTemplateNotifications(
-            $order->getUserByRole($order, 'client')->id,
+            $client->id,
             'unPaidOrder',
             [],
             ['type' => 'job_order', 'id' => $order->id, 'conversation_id' => $order->offer->conversation_id],
@@ -127,7 +133,8 @@ class Orders extends Controller
             $order->offer->conversation_id,
             'job_contract',
             [],
-            ['message' => $this->generateAcceptanceSurrenderMessage($order, false)]
+            ['message' => $this->generateAcceptanceSurrenderMessage($order, false,  $client->lang)],
+            $client->lang
         );
 
         $this->SendSMS($client->username, $this->generateAcceptanceSurrenderMessage($order));
@@ -245,7 +252,7 @@ class Orders extends Controller
         return $price * $appPercent / 100;
     }
 
-    private function generateAcceptanceSurrenderMessage($order, $phone=true)
+    private function generateAcceptanceSurrenderMessage($order, $phone=true, $MandatoryLang = null)
     {
         $messageBaseKey = 'system_messages.acceptance_delivery_message_';
 
@@ -256,7 +263,13 @@ class Orders extends Controller
             $messageBaseKey . 'job_recommend',
         ];
 
+        if ($MandatoryLang) {
+            Lang::setLocale($MandatoryLang);
+            Translator::instance()->setLocale('en');
+        }
+
         $translations = [];
+
 
         TranslateMessage::whereIn('code', $messageKeys)->get()->map(function ($item) use (&$translations) {
             $translations[$item->code] = $item->getContentAttribute();
