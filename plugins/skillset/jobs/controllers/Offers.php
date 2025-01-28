@@ -88,6 +88,8 @@ class Offers extends Controller
         $this->saveServices($offer, $validatedData['services']);
 
         $client = $this->getUserByRole($offer, 'client');
+        $worker = $this->getUserByRole($offer, 'worker');
+
         if ($oldStatus == $offer->statuses['offer_created']) {
             (new Message)->sendSystemMessage($offer->conversation_id, 'job_offered_services_pretext', [], [], $client->lang);
         }
@@ -101,11 +103,11 @@ class Offers extends Controller
             $offer->conversation_id,
             'offer_accepted_by_worker',
             ['offer_status_id' => $offer->status],
-            $sysMessageParams
+            $sysMessageParams,
+            $client->lang
         );
 
-        $client = $this->getUserByRole($offer, 'client');
-        $worker = $this->getUserByRole($offer, 'worker');
+
 
         (new Notification)->sendTemplateNotifications(
             [$client->id],
@@ -252,16 +254,18 @@ class Offers extends Controller
 
         $order = $this->transferOfferToOrder($offer);
 
+        $client = $order->getUserByRole($order, 'client');
+        $worker = $order->getUserByRole($order, 'worker');
+
         if ($order->payment_type == $order->paymentTypes['balance']) {
-            (new Message)->sendSystemMessage($offer->conversation_id, 'offer_accepted_by_client_pre_pay');
+            (new Message)->sendSystemMessage($offer->conversation_id, 'offer_accepted_by_client_pre_pay', [], [], $client->lang);
 
             $order->update(['status' => $order->statuses['pending_payment']]);
 
             return (new Payment)->paymentJobOrder($order, $authUserId);
         }
 
-        $client = $order->getUserByRole($order, 'client');
-        $worker = $order->getUserByRole($order, 'worker');
+
 
         (new Notification)->sendTemplateNotifications(
             [$worker->id],
@@ -282,7 +286,9 @@ class Offers extends Controller
         (new Message)->sendSystemMessage(
             $offer->conversation_id,
             'offer_accepted_by_client',
-            ['offer_status_id' => $offer->status]
+            ['offer_status_id' => $offer->status],
+            [],
+            $client->lang
         );
 
         return $this->successResponse([]);
@@ -324,11 +330,14 @@ class Offers extends Controller
         $offer->update([
             'status' => (new Offer())->statuses['offer_rejected_by_client']
         ]);
+        $client = $this->getUserByRole($offer, 'client');
 
         (new Message)->sendSystemMessage(
             $offer->conversation_id,
             'offer_rejected_by_client',
-            ['offer_status_id' => $offer->status]
+            ['offer_status_id' => $offer->status],
+            [],
+            $client->lang
         );
     }
 
@@ -337,6 +346,7 @@ class Offers extends Controller
      */
     private function rejectByWorker($offer)
     {
+        $client = $this->getUserByRole($offer, 'client');
         $offer->update([
             'status' => (new Offer())->statuses['offer_rejected_by_worker']
         ]);
@@ -344,7 +354,9 @@ class Offers extends Controller
         (new Message)->sendSystemMessage(
             $offer->conversation_id,
             'offer_rejected_by_worker',
-            ['offer_status_id' => $offer->status]
+            ['offer_status_id' => $offer->status],
+            [],
+            $client->lang
         );
     }
 
