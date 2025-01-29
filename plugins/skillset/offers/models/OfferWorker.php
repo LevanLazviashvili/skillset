@@ -5,7 +5,9 @@ use Cms\Traits\ApiResponser;
 use Cms\Traits\SmsOffice;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 use Model;
+use RainLab\Translate\Classes\Translator;
 use RainLab\Translate\Models\Message as TranslateMessage;
 use RainLab\User\Models\User;
 use RainLab\User\Models\Worker;
@@ -275,7 +277,7 @@ class OfferWorker extends Model
             ]);
         }
 
-        $systemMessage = $this->GenerateOrderServicesMsg(Arr::get($params, 'offer_id'), Arr::get($params, 'end_date'));
+        $systemMessage = $this->GenerateOrderServicesMsg(Arr::get($params, 'offer_id'), Arr::get($params, 'end_date'), $Client->lang);
         if (Arr::get($params, 'send_rules')) {
             (new Message)->sendSystemMessage(Arr::get($params, 'workerOfferObj')->conversation_id, 'offered_services_pretext', [], [], $Client->lang);
         }
@@ -288,7 +290,7 @@ class OfferWorker extends Model
         }
     }
 
-    public function GenerateOrderServicesMsg($OfferID, $endDate)
+    public function GenerateOrderServicesMsg($OfferID, $endDate, $MandatoryLang = null)
     {
         $messageBaseKey = 'system_messages.invoice_';
 
@@ -299,6 +301,11 @@ class OfferWorker extends Model
         ];
 
         $translations = [];
+
+        if ($MandatoryLang) {
+            Lang::setLocale($MandatoryLang);
+            Translator::instance()->setLocale($MandatoryLang);
+        }
 
         TranslateMessage::whereIn('code', $messageKeys)->get()->map(function ($item) use (&$translations) {
             $translations[$item->code] = $item->getContentAttribute();
