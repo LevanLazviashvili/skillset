@@ -60,12 +60,14 @@ class GetUserFromToken extends BaseMiddleware
 
         $response = $next($request);
 
-        traceLog([
-            'URI' => $request->getRequestUri(),
-            'METHOD' => $request->getMethod(),
-            'REQUEST_BODY' => $request->all(),
-            'RESPONSE' => $response->getContent()
-        ]);
+        if (!str_contains($request->getRequestUri(), 'orderupdates')){
+            traceLog([
+                'URI' => $request->getRequestUri(),
+                'METHOD' => $request->getMethod(),
+                'REQUEST_BODY' => $request->all(),
+                'RESPONSE' => $response->getContent()
+            ]);
+        }
 
         return $response;
     }

@@ -286,7 +286,6 @@ class OfferWorker extends Model
             $UserPhone = $Offer->custom_client_phone ? $Offer->custom_client_phone :Arr::get($Offer,'Client.username');
             $this->SendSMS($UserPhone, vsprintf((new Message)->getMessageText('offered_services'), [$systemMessage]));
 
-
         }
     }
 
