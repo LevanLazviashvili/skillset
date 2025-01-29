@@ -260,7 +260,7 @@ class Applications extends Controller
             $ClientID = $application->trade_type == (new Application)->tradeTypes['buy'] ? $application->user_id : $authUserId;
             $Client = User::find($ClientID);
 
-            (new Message)->sendSystemMessage($conversationId, 'chat_created', $Client->lang);
+            (new Message)->sendSystemMessage($conversationId, 'chat_created',[], [], $Client->lang);
         }
 
         return $this->successResponse([
