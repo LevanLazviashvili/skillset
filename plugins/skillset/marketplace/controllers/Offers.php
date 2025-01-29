@@ -192,7 +192,7 @@ class Offers extends Controller
             $totalAmount += $amount;
 
             $message .= ($index+1).') '. $product->title .': '. $product->amount .' '. $product->unit->title
-                .' - '. number_format($amount, 2).' ლ. (' . $product->unit_price . ' ლ. ' . $product->unit->title . ') \n ';
+                .' - '. number_format($amount, 2).' '.$translations[$messageBaseKey . 'currency_unit'].' (' . $product->unit_price . ' ლ. ' . $product->unit->title . ') \n ';
         }
 
         $message .= $translations[$messageBaseKey . 'price_sum'] . ' ' . number_format($totalAmount, 2).' ლ.';
