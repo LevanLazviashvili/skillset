@@ -7,7 +7,9 @@ use Cms\Traits\ApiResponser;
 use Cms\Traits\SmsOffice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
+use RainLab\Translate\Classes\Translator;
 use RainLab\Translate\Models\Message as TranslateMessage;
 use RainLab\User\Models\User;
 use RainLab\User\Models\Worker;
@@ -73,10 +75,11 @@ class Offers extends Controller
 
         $this->saveProducts($offer, $validatedData['products']);
 
-        $systemMessage = $this->generateOrderProductsMsg($offer->id);
-
         $client = $this->getUserByRole($offer, 'client');
         $seller = $this->getUserByRole($offer, 'seller');
+
+        $systemMessage = $this->generateOrderProductsMsg($offer->id, $client->lang);
+
 
         $this->SendSMS($client->username, vsprintf((new Message)->getMessageText('offered_products'), [$systemMessage]));
 
@@ -152,7 +155,7 @@ class Offers extends Controller
         ];
     }
 
-    public function generateOrderProductsMsg($offerId)
+    public function generateOrderProductsMsg($offerId, $MandatoryLang = null)
     {
         $messageBaseKey = 'system_messages.invoice_';
 
@@ -162,6 +165,11 @@ class Offers extends Controller
         ];
 
         $translations = [];
+
+        if ($MandatoryLang) {
+            Lang::setLocale($MandatoryLang);
+            Translator::instance()->setLocale($MandatoryLang);
+        }
 
         TranslateMessage::whereIn('code', $messageKeys)->get()->map(function ($item) use (&$translations) {
             $translations[$item->code] = $item->getContentAttribute();
