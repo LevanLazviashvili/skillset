@@ -2,6 +2,7 @@
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use cms\helpers\Langs;
 use Cms\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +37,8 @@ class Conversations extends Controller
         (new Message)->where('conversation_id', $ConversationID)->where('user_id', '!=', 0)->update(['seen' => 1]);
         if ($Conversation->status_id != 0 AND !$Conversation->conversation_admin_id) {
             $Conversation->update(['conversation_admin_id' => $this->user->id]);
-            (new Message)->sendSystemMessage($ConversationID, 'operator_joined', [], [$user->name.' '.$user->surname]);
+            $userLang = $this->getConversationUserLang($ConversationID);
+            (new Message)->sendSystemMessage($ConversationID, 'operator_joined', [], [$user->name.' '.$user->surname], $userLang);
         }
 
         return View::make(
@@ -48,7 +50,8 @@ class Conversations extends Controller
     public function onCloseChat($id)
     {
         (new Conversation)->closeConversation($id);
-        (new Message)->sendSystemMessage($id, 'chat_finished');
+        $userLang = $this->getConversationUserLang($id);
+        (new Message)->sendSystemMessage($id, 'chat_finished', [], [], $userLang);
         Flash::success('ჩატი დახურულია');
         $model = $this->formFindModelObject($id);
 
@@ -62,7 +65,8 @@ class Conversations extends Controller
         (new Conversation)->leaveConversation($id);
         $model = $this->formFindModelObject($id);
         $user = User::where('admin_user_id', $this->user->id)->first();
-        (new Message)->sendSystemMessage($id, 'admin_left_chat', [], [$user->name.' '.$user->surname]);
+        $userLang = $this->getConversationUserLang($id);
+        (new Message)->sendSystemMessage($id, 'admin_left_chat', [], [$user->name.' '.$user->surname], $userLang);
         if ($redirect = $this->makeRedirect('update', $model)) {
             return $redirect;
         }
@@ -131,6 +135,15 @@ class Conversations extends Controller
             ->where('c.type', 1)->where('seen', 0)
             ->count();
         return $this->response(['count' => $Count]);
+    }
+
+    private function getConversationUserLang($ConversationID)
+    {
+        $ConversationUser = (new ConversationUser)->where('conversation_id', $ConversationID)->where('user_id', '!=', 0)->first();
+        if ($ConversationUser) {
+            return User::find($ConversationUser->user_id)->lang ?? 0;
+        }
+        return config('app.default_lang');
     }
 
 }

@@ -213,17 +213,22 @@ class Orders extends Controller
             'app_percent_amount'    => Arr::get($prices, 'app_commission'),
         ]);
 
+
+        $client = $order->getUserByRole($order, 'client');
         (new Message)->sendSystemMessage(
             $order->offer->conversation_id,
             'contract_is_ready',
-            ['order_status_id' => $order->status]
+            ['order_status_id' => $order->status],
+            [],
+            $client->lang
         );
 
         (new Message)->sendSystemMessage(
             $order->offer->conversation_id,
             'marketplace_contract',
             [],
-            ['message' => $this->generateAcceptanceSurrenderMessage($order, false)]
+            ['message' => $this->generateAcceptanceSurrenderMessage($order, false)],
+            $client->lang
         );
 
         $client = $order->getUserByRole($order, 'client');
@@ -290,7 +295,10 @@ class Orders extends Controller
         (new Message)->sendSystemMessage(
             $order->offer->conversation_id,
             $messageKey,
-            ['order_status_id' => $order->status]
+            ['order_status_id' => $order->status],
+            [],
+            $client->lang
+
         );
 
         (new Notification)->sendTemplateNotifications(
@@ -327,7 +335,9 @@ class Orders extends Controller
             (new Message)->sendSystemMessage(
                 $order->offer->conversation_id,
                 $messageKey,
-                ['order_status_id' => $order->status]
+                ['order_status_id' => $order->status],
+                [],
+                $client->lang
             );
 
             (new Notification)->sendTemplateNotifications(

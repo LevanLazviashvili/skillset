@@ -89,7 +89,8 @@ class Offers extends Controller
             $offer->conversation_id,
             'offered_products',
             ['offer_status_id' => $offer->status],
-            ['message' => $systemMessage]
+            ['message' => $systemMessage],
+            $client->lang
         );
 
         (new Notification)->sendTemplateNotifications(
@@ -221,7 +222,9 @@ class Offers extends Controller
                 (new Message)->sendSystemMessage(
                     $offer->conversation_id,
                     'marketplace_offer_accepted_pre_pay',
-                    ['order_status_id' => $order->status]
+                    ['order_status_id' => $order->status],
+                    [],
+                    $client->lang
                 );
 
                 (new Notification)->sendTemplateNotifications(
@@ -246,7 +249,9 @@ class Offers extends Controller
             (new Message)->sendSystemMessage(
                 $offer->conversation_id,
                 'marketplace_offer_accepted',
-                ['offer_status_id' => $offer->status]
+                ['offer_status_id' => $offer->status],
+                [],
+                $client->lang
             );
 
             (new Notification)->sendTemplateNotifications(
@@ -288,7 +293,8 @@ class Offers extends Controller
             (new Message)->sendSystemMessage(
                 $offer->conversation_id,
                 'marketplace_offer_rejected',
-                ['offer_status_id' => $offer->status]
+                ['offer_status_id' => $offer->status],
+                $client->lang
             );
 
             (new Notification)->sendTemplateNotifications(

@@ -146,7 +146,9 @@ class OfferWorker extends Model
                 (new Notification)->sendTemplateNotifications([$params['workerOfferObj']->worker_id], 'offerRejectedByClient', [$User->name.' '.$User->surname], ['type' => 'offer', 'id' => Arr::get($params, 'offer_id')] ,'order_details');
         }
 
-        (new Message)->sendSystemMessage($params['workerOfferObj']->conversation_id, Arr::get(array_flip($this->statuses), Arr::get($params, 'status_id')), ['offer_status_id' => Arr::get($params, 'status_id')], $SysMessageParams);
+        $Client = (new Offer)->getClient($params['workerOfferObj']->Offer);
+
+        (new Message)->sendSystemMessage($params['workerOfferObj']->conversation_id, Arr::get(array_flip($this->statuses), Arr::get($params, 'status_id')), ['offer_status_id' => Arr::get($params, 'status_id')], $SysMessageParams, $Client->lang);
     }
 
     private function getWorkerOffer($OfferID, $UserType, $WorkerID = null, $ByAdmin = false)
@@ -261,6 +263,7 @@ class OfferWorker extends Model
 
         (new OrderServiceTmp)->where('offer_id', Arr::get($params, 'offer_id'))->delete();
         $Offer = (new Offer)->with('Client')->find(Arr::get($params, 'offer_id'));
+        $Client = (new Offer)->getClient($Offer);
         foreach (Arr::get($params, 'services', []) AS $service)
         {
             (new OrderServiceTmp)->create([
@@ -274,10 +277,10 @@ class OfferWorker extends Model
 
         $systemMessage = $this->GenerateOrderServicesMsg(Arr::get($params, 'offer_id'), Arr::get($params, 'end_date'));
         if (Arr::get($params, 'send_rules')) {
-            (new Message)->sendSystemMessage(Arr::get($params, 'workerOfferObj')->conversation_id, 'offered_services_pretext');
+            (new Message)->sendSystemMessage(Arr::get($params, 'workerOfferObj')->conversation_id, 'offered_services_pretext', [], [], $Client->lang);
         }
         if ($systemMessage) {
-            (new Message)->sendSystemMessage(Arr::get($params, 'workerOfferObj')->conversation_id, 'offered_services', [], [$systemMessage]);
+            (new Message)->sendSystemMessage(Arr::get($params, 'workerOfferObj')->conversation_id, 'offered_services', [], [$systemMessage], $Client->lang);
             $UserPhone = $Offer->custom_client_phone ? $Offer->custom_client_phone :Arr::get($Offer,'Client.username');
             $this->SendSMS($UserPhone, vsprintf((new Message)->getMessageText('offered_services'), [$systemMessage]));
 
