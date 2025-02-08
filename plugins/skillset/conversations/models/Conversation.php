@@ -92,7 +92,7 @@ class Conversation extends Model
         return $this->hasMany(Message::class);
     }
 
-    public function lastMessage()
+    public function LastMessage()
     {
         return $this->hasMany(Message::class, 'conversation_id', 'id')->orderBy('seen', 'asc')->orderBy('id', 'desc');
     }
