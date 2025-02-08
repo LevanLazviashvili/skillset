@@ -94,7 +94,7 @@ class Conversation extends Model
 
     public function lastMessage()
     {
-        return $this->hasMany(Message::class, 'conversation_id', 'id')->orderBy('id', 'desc');
+        return $this->hasMany(Message::class, 'conversation_id', 'id')->orderBy('seen', 'asc')->orderBy('id', 'desc');
     }
 
     public function startNewConversation($userIDs = [], $CreatedBy = 0, $Type = 0, $Message = null, $Images = null)
