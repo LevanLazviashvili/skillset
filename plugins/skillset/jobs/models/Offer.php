@@ -81,4 +81,23 @@ class Offer extends Model
     {
         return $this->hasMany(Service::class);
     }
+
+    public function getUserByRole($offerInstance, $role)
+    {
+        $offer = clone $offerInstance;
+
+        $offer->loadMissing(['job']);
+
+        $job = $offer->job;
+        $isClientRole = $job->author_role == $job->authorRoles['client'];
+        $isWorkerRole = $job->author_role == $job->authorRoles['worker'];
+
+        if ($role === 'client') {
+            return User::find($isClientRole ? $job->user_id : $offer->author_id);
+        } elseif ($role === 'worker') {
+            return User::find($isWorkerRole ? $job->user_id : $offer->author_id);
+        }
+
+        return 0;
+    }
 }

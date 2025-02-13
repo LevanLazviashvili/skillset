@@ -7,7 +7,9 @@ use Cms\Traits\ApiResponser;
 use Cms\Traits\SmsOffice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
+use RainLab\Translate\Classes\Translator;
 use RainLab\Translate\Models\Message as TranslateMessage;
 use RainLab\User\Models\User;
 use RainLab\User\Models\Worker;
@@ -73,10 +75,11 @@ class Offers extends Controller
 
         $this->saveProducts($offer, $validatedData['products']);
 
-        $systemMessage = $this->generateOrderProductsMsg($offer->id);
-
         $client = $this->getUserByRole($offer, 'client');
         $seller = $this->getUserByRole($offer, 'seller');
+
+        $systemMessage = $this->generateOrderProductsMsg($offer->id, $client->lang);
+
 
         $this->SendSMS($client->username, vsprintf((new Message)->getMessageText('offered_products'), [$systemMessage]));
 
@@ -89,7 +92,8 @@ class Offers extends Controller
             $offer->conversation_id,
             'offered_products',
             ['offer_status_id' => $offer->status],
-            ['message' => $systemMessage]
+            ['message' => $systemMessage],
+            $client->lang
         );
 
         (new Notification)->sendTemplateNotifications(
@@ -151,7 +155,7 @@ class Offers extends Controller
         ];
     }
 
-    public function generateOrderProductsMsg($offerId)
+    public function generateOrderProductsMsg($offerId, $MandatoryLang = null)
     {
         $messageBaseKey = 'system_messages.invoice_';
 
@@ -161,6 +165,11 @@ class Offers extends Controller
         ];
 
         $translations = [];
+
+        if ($MandatoryLang) {
+            Lang::setLocale($MandatoryLang);
+            Translator::instance()->setLocale($MandatoryLang);
+        }
 
         TranslateMessage::whereIn('code', $messageKeys)->get()->map(function ($item) use (&$translations) {
             $translations[$item->code] = $item->getContentAttribute();
@@ -183,10 +192,10 @@ class Offers extends Controller
             $totalAmount += $amount;
 
             $message .= ($index+1).') '. $product->title .': '. $product->amount .' '. $product->unit->title
-                .' - '. number_format($amount, 2).' ლ. (' . $product->unit_price . ' ლ. ' . $product->unit->title . ') \n ';
+                .' - '. number_format($amount, 2).' '.$translations[$messageBaseKey . 'currency_unit'].' (' . $product->unit_price . ' '.$translations[$messageBaseKey . 'currency_unit']. ' ' . $product->unit->title . ') \n ';
         }
 
-        $message .= $translations[$messageBaseKey . 'price_sum'] . ' ' . number_format($totalAmount, 2).' ლ.';
+        $message .= $translations[$messageBaseKey . 'price_sum'] . ' ' . number_format($totalAmount, 2).' '.$translations[$messageBaseKey . 'currency_unit'];
 
         return $message;
     }
@@ -221,7 +230,9 @@ class Offers extends Controller
                 (new Message)->sendSystemMessage(
                     $offer->conversation_id,
                     'marketplace_offer_accepted_pre_pay',
-                    ['order_status_id' => $order->status]
+                    ['order_status_id' => $order->status],
+                    [],
+                    $client->lang
                 );
 
                 (new Notification)->sendTemplateNotifications(
@@ -246,7 +257,9 @@ class Offers extends Controller
             (new Message)->sendSystemMessage(
                 $offer->conversation_id,
                 'marketplace_offer_accepted',
-                ['offer_status_id' => $offer->status]
+                ['offer_status_id' => $offer->status],
+                [],
+                $client->lang
             );
 
             (new Notification)->sendTemplateNotifications(
@@ -288,7 +301,8 @@ class Offers extends Controller
             (new Message)->sendSystemMessage(
                 $offer->conversation_id,
                 'marketplace_offer_rejected',
-                ['offer_status_id' => $offer->status]
+                ['offer_status_id' => $offer->status],
+                $client->lang
             );
 
             (new Notification)->sendTemplateNotifications(

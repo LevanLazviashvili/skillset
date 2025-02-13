@@ -93,4 +93,6 @@ class Application extends Model
     {
         return $query->active()->where('status', $this->statuses['new']);
     }
+
+
 }

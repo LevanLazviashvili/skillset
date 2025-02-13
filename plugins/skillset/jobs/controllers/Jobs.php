@@ -246,6 +246,7 @@ class Jobs extends Controller
 
         $offer = Offer::where('author_id', $authUserId)->where('job_id', $job->id)->first();
 
+
         if(!$offer){
             $conversationId = (new Conversation())->startNewConversation([$authUserId, $job->user_id], $authUserId);
 
@@ -255,7 +256,9 @@ class Jobs extends Controller
                 'conversation_id' => $conversationId
             ]);
 
-            (new Message)->sendSystemMessage($conversationId, 'chat_created');
+            $client = (new Offer)->getUserByRole($offer, 'client');
+
+            (new Message)->sendSystemMessage($conversationId, 'chat_created', [], [], $client->lang);
         }
 
         return $this->successResponse([

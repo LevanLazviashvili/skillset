@@ -247,6 +247,15 @@ class Offer extends Model
         }
     }
 
+    public function getClient($offerInstance)
+    {
+        $offer = clone $offerInstance;
+
+        $offer->loadMissing(['Client']);
+
+        return $offer->Client;
+    }
+
     private function generateOfferTitle($params = [])
     {
         if (Arr::get($params, 'service_ids')) {

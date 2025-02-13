@@ -65,7 +65,8 @@ class Orders extends Controller
             $AppPercent = (new Worker)->getWorkerCommission($Order->worker_id);
 //            (new Notification)->sendTemplateNotifications([$Order->worker_id], 'userAcceptedOrder', [$User->name.' '.$User->surname], ['type' => 'order', 'id' => Arr::get($params, 'order_id')] ,'order_details');
             (new Worker)->updateBalance($Order->worker_id, $Order->getPriceToCharge($Order->total_price, $AppPercent), false);
-            (new Message)->sendSystemMessage($Order->conversation_id, 'payed_with_cash', ['order_status_id' => $Order->statuses['user_payed']]);
+            $client = User::find($Order->client_id);
+            (new Message)->sendSystemMessage($Order->conversation_id, 'payed_with_cash', ['order_status_id' => $Order->statuses['user_payed']], [], $client->lang);
             (new User)->checkUserBusyStatus($Order->worker_id);
         }
         $Order->update([
