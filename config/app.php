@@ -19,7 +19,7 @@ return [
     'debug' => env('APP_DEBUG', false),
 
     'versioning'    => [
-      'required_app_version_android'    => '1.19',
+      'required_app_version_android'    => '1.36',
       'required_app_version_ios'    => '1.28'
     ],
 
