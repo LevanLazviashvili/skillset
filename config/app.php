@@ -20,7 +20,7 @@ return [
 
     'versioning'    => [
       'required_app_version_android'    => '1.36',
-      'required_app_version_ios'    => '1.28'
+      'required_app_version_ios'    => '1.32'
     ],
 
     /*
