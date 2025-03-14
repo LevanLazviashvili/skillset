@@ -15,3 +15,11 @@ offerProducts:
     showCheckboxes: false
   manage:
     form: $/skillset/marketplace/models/product/fields.yaml
+orderRate:
+  label: 'შეკვეთის შეფასებები'
+  view:
+    list: $/skillset/rating/models/rating/columns.yaml
+    toolbarButtons: true
+    showCheckboxes: true
+  manage:
+    form: $/skillset/rating/models/rating/fields.yaml

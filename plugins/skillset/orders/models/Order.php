@@ -89,7 +89,14 @@ class Order extends Model
             'skillset\Orders\Models\OrderServiceTmp',
             'table' => 'skillset_orders_services_tmp',
             'order' => 'id'
-        ]
+        ],
+        'orderRate' => [
+            'skillset\rating\Models\Rating',
+            'table' => 'skillset_rating_',
+            'order' => 'id',
+            'key' => 'order_id',
+            'conditions' => 'order_type = 1'
+        ],
     ];
 
     public function OrderServices()

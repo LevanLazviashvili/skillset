@@ -6,3 +6,11 @@ userServices:
       showCheckboxes: true
     manage:
       form: $/skillset/services/models/servicetouser/fields.yaml
+userRates:
+  label: 'მომხმარებლის შეფასებები'
+  view:
+    list: $/skillset/rating/models/rating/columns.yaml
+    toolbarButtons: true
+    showCheckboxes: true
+  manage:
+    form: $/skillset/rating/models/rating/fields.yaml
