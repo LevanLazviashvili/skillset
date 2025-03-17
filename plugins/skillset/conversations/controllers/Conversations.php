@@ -104,6 +104,16 @@ class Conversations extends Controller
         return $this->response((int)$conversation->startNewConversation([config('auth.UserID'), $conversation->supperUserID], config('auth.UserID'),1, $request->input('message')));
     }
 
+    public function getSupportUser(Request $request, Conversation $conversation, User $user)
+    {
+        $User = $user->getInfo([], $conversation->supperUserID);
+        return $this->response([
+            'name'      => $User['name'],
+            'surname'   => $User['surname'],
+            'avatar'    => $User['avatar']
+        ]);
+    }
+
 
     public function getDetails(Request $request, Conversation $conversationModel)
     {
