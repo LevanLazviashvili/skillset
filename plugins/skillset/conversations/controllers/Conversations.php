@@ -95,6 +95,15 @@ class Conversations extends Controller
         return $this->errorResponse('Not Found', self::$ERROR_CODES['NOT_FOUND']);
     }
 
+    public function startConversationWithSupportUser(Request $request, Conversation $conversation)
+    {
+        if ($activeConversationID = $conversation->hasActiveSupportUserConverstion(config('auth.UserID'))) {
+            $conversation->sendMessage($activeConversationID, config('auth.UserID'), $request->input('message'), $request->input('images'));
+            return $this->response((int)$activeConversationID);
+        }
+        return $this->response((int)$conversation->startNewConversation([config('auth.UserID'), $conversation->supperUserID], config('auth.UserID'),1, $request->input('message')));
+    }
+
 
     public function getDetails(Request $request, Conversation $conversationModel)
     {

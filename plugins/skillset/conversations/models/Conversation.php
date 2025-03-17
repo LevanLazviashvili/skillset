@@ -6,6 +6,7 @@
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Model;
 use Pheanstalk\Exception;
@@ -29,6 +30,8 @@ class Conversation extends Model
      */
     public $table = 'skillset_conversations_';
     protected $primaryKey = 'id';
+    public $supperUserID = '6345';
+
 
     /**
      * @var array Validation rules
@@ -148,6 +151,16 @@ class Conversation extends Model
         return self::whereHas('ConversationUsers', function($q) use ($UserID) {
             $q->where('user_id', $UserID ?: config('auth.UserID'));
         })->where('type', 1)->where('status_id', 1)->first();
+    }
+
+    public function hasActiveSupportUserConverstion($UserID = null)
+    {
+        return DB::table('skillset_conversations_users')
+            ->whereIn('user_id', [$UserID, $this->supperUserID])
+            ->groupBy('conversation_id')
+            ->havingRaw('COUNT(DISTINCT user_id) = ?', [2])
+            ->pluck('conversation_id')->first();
+
     }
 
     public function getOne($params = [])

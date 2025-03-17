@@ -28,6 +28,7 @@ Route::prefix('{lang}/user')->group(function(){
     Route::post('/supportconversation', 'skillset\Conversations\Controllers\Conversations@startConversationWithSupport')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
     Route::get('/hassupportconversation', 'skillset\Conversations\Controllers\Conversations@hasActiveSupportConversation')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
     Route::get('/hasnewconversation', 'skillset\Conversations\Controllers\Conversations@userHasNewConversations')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
+    Route::post('/supportuserconversation', 'skillset\Conversations\Controllers\Conversations@startConversationWithSupportUser')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
 
     Route::get('/orderupdates', 'skillset\Orders\Controllers\Orders@userHasOrderUpdates')->middleware('\Tymon\JWTAuth\Middleware\GetUserFromToken');
 });
