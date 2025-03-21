@@ -1,24 +1,24 @@
 columns:
     id:
-        label: 'id'
-        type: 'text'
+        label: id
+        type: text
     title:
-        label: 'სათაური'
+        label: სათაური
         type: text
     client_id:
-        label: 'შემკვეთი'
+        label: შემკვეთი
         type: text
         searchable: true
         select: 'concat(name, '' '', surname)'
         relation: Client1
     worker_id:
-        label: 'შემსრულებელი'
+        label: შემსრულებელი
         type: text
         searchable: true
         select: 'concat(name, '' '', surname)'
         relation: Worker1
     status_id:
-        label: 'მდგომარეობა'
+        label: მდგომარეობა
         type: special_order_statuses
     start_date:
         label: 'დაწყების თარ.'
@@ -35,5 +35,10 @@ columns:
         label: 'skillset საკომ.'
         type: text
     total_price:
-        label: 'ჯამი'
+        label: ჯამი
         type: text
+    comment:
+        label: კომენტარი
+        type: text
+        searchable: true
+        invisible: true
