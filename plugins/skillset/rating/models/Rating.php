@@ -52,8 +52,8 @@ class Rating extends Model
     ];
 
     public $belongsTo = [
-        'RatedUser'         => [User::class, 'key' => 'rated_id', 'otherKey' => 'id', 'conditions' => 'status_id = 1 OR status_id = 2  AND admin_user_id is null'],
-        'RaterUser'         => [User::class, 'key' => 'rater_id', 'otherKey' => 'id', 'conditions' => 'status_id = 1 OR status_id = 2 AND admin_user_id is null'],
+        'RatedUser'         => [User::class, 'key' => 'rated_id', 'otherKey' => 'id', 'conditions' => '(status_id = 1 OR status_id = 2)  AND admin_user_id is null'],
+        'RaterUser'         => [User::class, 'key' => 'rater_id', 'otherKey' => 'id', 'conditions' => '(status_id = 1 OR status_id = 2) AND admin_user_id is null'],
         'Order'             => [Order::class],
         'jobOrder'          => [JobOrder::class, 'key' => 'order_id', 'otherKey' => 'id'],
         'marketplaceOrder'  => [MarketplaceOrder::class, 'key' => 'order_id', 'otherKey' => 'id']
