@@ -105,7 +105,7 @@ class Conversations extends Controller
             $activeConversationID = (int)$conversation->startNewConversation([config('auth.UserID'), $conversation->supperUserID], config('auth.UserID'), 1, $request->input('message'));
         }
 
-        $userName = $user->getInfo([])['name'];
+        $userName = $user->getInfo($request)['name'];
 
         $notificationModel->sendTemplateNotifications([$conversation->supperUserID], 'newMessage', [$userName], ['conversation_id' => $activeConversationID, 'user_name' => $userName], 'chat');
         return $this->response((int)$activeConversationID);
