@@ -13,6 +13,7 @@ use RainLab\User\Models\User;
 use skillset\Conversations\Models\Conversation;
 use skillset\Conversations\Models\ConversationUser;
 use skillset\Conversations\Models\Message;
+use skillset\Notifications\Models\Notification;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class Conversations extends Controller
@@ -95,13 +96,19 @@ class Conversations extends Controller
         return $this->errorResponse('Not Found', self::$ERROR_CODES['NOT_FOUND']);
     }
 
-    public function startConversationWithSupportUser(Request $request, Conversation $conversation)
+    public function startConversationWithSupportUser(Request $request, Conversation $conversation, Notification $notificationModel, User $user)
     {
-        if ($activeConversationID = $conversation->hasActiveSupportUserConverstion(config('auth.UserID'))) {
+        $activeConversationID = $conversation->hasActiveSupportUserConverstion(config('auth.UserID'));
+        if ($activeConversationID) {
             $conversation->sendMessage($activeConversationID, config('auth.UserID'), $request->input('message'), $request->input('images'));
-            return $this->response((int)$activeConversationID);
+        } else {
+            $activeConversationID = (int)$conversation->startNewConversation([config('auth.UserID'), $conversation->supperUserID], config('auth.UserID'), 1, $request->input('message'));
         }
-        return $this->response((int)$conversation->startNewConversation([config('auth.UserID'), $conversation->supperUserID], config('auth.UserID'),1, $request->input('message')));
+
+        $userName = $user->getInfo([])['name'];
+
+        $notificationModel->sendTemplateNotifications([$conversation->supperUserID], 'newMessage', [$userName], ['conversation_id' => $activeConversationID, 'user_name' => $userName], 'chat');
+        return $this->response((int)$activeConversationID);
     }
 
     public function getSupportUser(Request $request, Conversation $conversation, User $user)
