@@ -1,0 +1,33 @@
+fields:
+    RaterUser:
+        label: შემფასებელი
+        span: left
+        select: 'concat('' ( '', id, '' ) '', name, '' '', surname)'
+        type: relation
+    RatedUser:
+        label: შეფასებელი
+        span: left
+        select: 'concat('' ( '', id, '' ) '', name, '' '', surname)'
+        type: relation
+    rate:
+        label: შეფასება
+        options:
+            1: '1'
+            2: '2'
+            3: '3'
+            4: '4'
+            5: '5'
+        showSearch: true
+        span: left
+        type: dropdown
+    comment:
+        label: კომენტარი
+        size: small
+        span: left
+        type: textarea
+    rater_id:
+        label: შემფასებელი
+        span: full
+        hidden: 1
+        type: number
+        default: 1

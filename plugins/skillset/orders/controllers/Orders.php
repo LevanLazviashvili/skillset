@@ -41,6 +41,22 @@ class Orders extends Controller
         BackendMenu::setContext('skillset.Orders', 'main-menu-item');
     }
 
+    public function relationExtendModel($model)
+    {
+        $model->some_field = 'Default Value';
+    }
+
+
+//    public function onRelationManageCreate($orderID)
+//    {
+//        $request = request();
+//        $request->replace(['Rating' => ['rated_id' => 5]]);
+//
+//        parent::onRelationManageCreate();
+//
+//
+//    }
+
     public function onRelationManageUpdate($id)
     {
         parent::onRelationManageUpdate();

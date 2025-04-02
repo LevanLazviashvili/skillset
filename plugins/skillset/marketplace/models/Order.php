@@ -55,6 +55,14 @@ class Order extends Model
     public $hasMany = [
         'orderProducts' => [Product::class, 'order_id', 'id', 'conditions' => 'pre = 0'],
         'offerProducts' => [Product::class, 'order_id', 'id', 'conditions' => 'pre = 1'],
+        'orderRate' => [
+            'skillset\rating\Models\Rating',
+            'table' => 'skillset_rating_',
+            'order' => 'id',
+            'key' => 'order_id',
+            'conditions' => 'order_type = 2',
+            'limit' => 1
+        ]
     ];
 
     public $paymentTypes = [

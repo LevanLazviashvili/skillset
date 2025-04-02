@@ -10,6 +10,7 @@ use skillset\details\Models\Country;
 use skillset\details\Models\LegalType;
 use skillset\details\Models\Region;
 use skillset\Log\Models\EmailLog;
+use skillset\Marketplace\Models\Product;
 use skillset\Offers\Models\Offer;
 use skillset\Offers\Models\OfferWorker;
 use skillset\Orders\Models\Order;
@@ -186,7 +187,7 @@ class User extends UserBase
     public $belongsTo = [
         'OrgLegalType'  => LegalType::class, 'id', 'org_legal_type_id',
         'Country'       => Country::class, 'id', 'country_id',
-        'Region'        => Region::class, 'id', 'region_id'
+        'Region'        => Region::class, 'id', 'region_id',
     ];
 
     public $hasMany = [
@@ -194,7 +195,13 @@ class User extends UserBase
             'skillset\Services\Models\ServiceToUser',
             'table' => 'skillset_services_sub_to_user',
             'order' => 'id'
-        ]
+        ],
+        'userRates' => [
+            'skillset\rating\Models\Rating',
+            'table' => 'skillset_rating_',
+            'order' => 'id',
+            'key' => 'rated_id'
+        ],
     ];
 
     public $hasOne = [

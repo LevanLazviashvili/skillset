@@ -15,6 +15,9 @@
             <?= $this->relationRender('offerServices', ['readOnly' => ($this->vars['formModel']->status == $this->vars['formModel']->statuses['paid'])]) ?>
             <label>შესრულებული სამუშაოები</label><br><br>
             <?= $this->relationRender('orderServices', ['readOnly' => ($this->vars['formModel']->status == $this->vars['formModel']->statuses['paid'])]) ?>
+            <label>შეკვეთის შეფასება</label><br><br>
+            <?= $this->relationRender('orderRate') ?>
+
         </div>
 
         <div class="form-buttons">

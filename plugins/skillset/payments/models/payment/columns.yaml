@@ -9,9 +9,11 @@ columns:
     price:
         label: თანხა
         type: number
+        searchable: true
     user_id:
         label: მომხმარებელი
         type: text
+        searchable: true
         select: 'concat(name, '' '', surname)'
         relation: User
     ipay_payment_id:

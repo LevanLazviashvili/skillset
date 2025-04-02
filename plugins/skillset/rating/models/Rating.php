@@ -11,6 +11,7 @@ use skillset\Configuration\Traits\Config;
 use skillset\Orders\Models\Order;
 use skillset\Jobs\Models\Order as JobOrder;
 use skillset\Marketplace\Models\Order as MarketplaceOrder;
+use skillset\Services\Models\Service;
 
 /**
  * Model
@@ -42,10 +43,21 @@ class Rating extends Model
 
     protected $visible = ['id','rate', 'comment', 'created_at', 'rater_id', 'User'];
 
+//    protected $fillable = ['order_id', 'rated_id', 'rater_id'];
+
     public $orderTypes = [
         'order' => 1,
         'jobOrder' => 2,
         'marketplaceOrder' => 3
+    ];
+
+    public $belongsTo = [
+        'RatedUser'         => [User::class, 'key' => 'rated_id', 'otherKey' => 'id', 'conditions' => '(status_id = 1 OR status_id = 2)  AND admin_user_id is null'],
+        'RaterUser'         => [User::class, 'key' => 'rater_id', 'otherKey' => 'id', 'conditions' => '(status_id = 1 OR status_id = 2) AND admin_user_id is null'],
+        'Order'             => [Order::class],
+        'jobOrder'          => [JobOrder::class, 'key' => 'order_id', 'otherKey' => 'id'],
+        'marketplaceOrder'  => [MarketplaceOrder::class, 'key' => 'order_id', 'otherKey' => 'id']
+
     ];
 
     public function User()
@@ -60,6 +72,42 @@ class Rating extends Model
     public function Rated()
     {
         return $this->hasOne(User::class, 'id', 'rated_id');
+    }
+
+    public function beforeSave()
+    {
+        $request = request();
+        if (!$request->url) {
+            return;
+        }
+        $queryParams = explode('/',$request->url);
+        $orderTypesByQuery = [
+            'orders' => 1,
+            'jobs' => 2,
+            'Marketplace' => 3
+        ];
+        $this->order_type = Arr::get($orderTypesByQuery, $queryParams[2]);
+        $this->status_id = 1;
+
+    }
+
+    public function afterSave()
+    {
+        $request = request();
+        if (!$request->url) {
+            return;
+        }
+        $this->UpdateOrderUsersRates($this->order_id, $this->order_type);
+    }
+
+    public function afterDelete()
+    {
+        $request = request();
+        if (!$request->url) {
+            return;
+        }
+        $this->UpdateOrderUsersRates($this->order_id, $this->order_type);
+
     }
 
     public function getAll($params = [])
@@ -198,6 +246,7 @@ class Rating extends Model
         $OrderRates = self::where('order_type', $orderType)
             ->where('order_id', $OrderID)
             ->get();
+
 
         foreach ($OrderRates AS $OrderRate) {
             $this->UpdateUserRates(Arr::get($OrderRate, 'rated_id'));

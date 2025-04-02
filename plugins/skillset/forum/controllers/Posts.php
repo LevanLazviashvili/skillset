@@ -92,6 +92,8 @@ class Posts extends Controller
 
         $post->images = $validatedData['images'] ?? [];
 
+        $post->description = preg_replace('/\+?\d{3}[-\s]?\d{3}[-\s]?\d{2,3}[-\s]?\d{2,3}[-\s]?\d{0,2}/', '*****', $post->description);
+
         $post->save();
 
         return $this->successResponse([]);

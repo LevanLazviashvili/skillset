@@ -1,0 +1,19 @@
+columns:
+    rater_id:
+        label: 'შემფასებელი'
+        type: text
+        searchable: true
+        select: 'concat(name, '' '', surname)'
+        relation: RaterUser
+    rated_id:
+        label: 'შეფასებული'
+        type: text
+        searchable: true
+        select: 'concat(name, '' '', surname)'
+        relation: RatedUser
+    rate:
+        label: ქულა
+        type: number
+    comment:
+        label: კომენტარი
+        type: text

@@ -22,3 +22,13 @@ columns:
         label: 'წაუკითხავი შეტყობინება'
         type: special_unread
         sortable: false
+    comment:
+        label: კომენტარი
+        type: text
+        searchable: true
+        invisible: true
+    custom_client_phone:
+        label: 'კლიენტის ნომერი'
+        type: text
+        searchable: true
+        invisible: true
