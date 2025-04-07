@@ -320,7 +320,8 @@ class Order extends Model
         $this->validateUpdateOrder($UserType, $Order->status_id, $toStatus);
         $Order->update([
             'status_id'     => $toStatus,
-            'seen'          => 0
+            'seen'          => 0,
+            'charged'       => 1
         ]);
         $User = (new User)->find($Order->client_id);
 

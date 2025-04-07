@@ -129,3 +129,6 @@
 1.0.44:
     - 'Created table skillset_orders_adverts'
     - builder_table_create_skillset_orders_adverts.php
+1.0.45:
+    - 'Updated table skillset_orders_'
+    - builder_table_update_skillset_orders__33.php

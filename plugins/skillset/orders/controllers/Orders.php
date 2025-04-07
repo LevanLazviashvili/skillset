@@ -77,7 +77,7 @@ class Orders extends Controller
     }
     public function formAfterSave(Order $Order)
     {
-        if ($Order->status_id == $Order->statuses['user_payed']) {
+        if ($Order->status_id == $Order->statuses['user_payed'] && !$Order->charged) {
             $AppPercent = (new Worker)->getWorkerCommission($Order->worker_id);
 //            (new Notification)->sendTemplateNotifications([$Order->worker_id], 'userAcceptedOrder', [$User->name.' '.$User->surname], ['type' => 'order', 'id' => Arr::get($params, 'order_id')] ,'order_details');
             (new Worker)->updateBalance($Order->worker_id, $Order->getPriceToCharge($Order->total_price, $AppPercent), false);
@@ -86,7 +86,8 @@ class Orders extends Controller
             (new User)->checkUserBusyStatus($Order->worker_id);
         }
         $Order->update([
-            'seen'          => 0
+            'seen'          => 0,
+            'charged'       => 1
         ]);
 //
 //        $request = \request()->all();
