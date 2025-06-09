@@ -84,10 +84,12 @@ class Orders extends Controller
             $client = User::find($Order->client_id);
             (new Message)->sendSystemMessage($Order->conversation_id, 'payed_with_cash', ['order_status_id' => $Order->statuses['user_payed']], [], $client->lang);
             (new User)->checkUserBusyStatus($Order->worker_id);
+            $Order->update([
+                'charged'       => 1
+            ]);
         }
         $Order->update([
-            'seen'          => 0,
-            'charged'       => 1
+            'seen'          => 0
         ]);
 //
 //        $request = \request()->all();
