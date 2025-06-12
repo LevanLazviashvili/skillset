@@ -75,3 +75,6 @@
 1.0.26:
     - 'Updated table skillset_offers_'
     - builder_table_update_skillset_offers__5.php
+1.0.27:
+    - 'Updated table skillset_offers_'
+    - builder_table_update_skillset_offers__21.php
