@@ -923,8 +923,7 @@ class User extends UserBase
         $query = self::active()
             ->when(Arr::get($params, 'keyword'), function ($query, $keyword) {
                 $query->where(function ($query) use ($keyword) {
-                    $query->where('name', 'like', '%' . $keyword . '%')
-                        ->orWhere('surname', 'like', '%' . $keyword . '%');
+                    $query->whereRaw("CONCAT(name, ' ', surname) LIKE ?", ["%{$keyword}%"]);
                 });
             });
 
